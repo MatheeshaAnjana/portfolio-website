@@ -1,2 +1,9 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Ignore node modules (includes react-bootstrap)
+node_modules/
+
+# Ignore build output
+build/
+dist/
+
+# Ignore local env files
+.env
