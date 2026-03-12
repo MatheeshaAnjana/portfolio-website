@@ -1,0 +1,146 @@
+/* ---- Projects Section ---- */
+
+/* Filter button group */
+.projects__filters { gap: 0.5rem; }
+
+.projects__filter-btn {
+  font-family: var(--font-body) !important;
+  font-size: 0.85rem !important;
+  border-radius: 50px !important;
+  padding: 0.45rem 1.2rem !important;
+  border-color: var(--border-subtle) !important;
+  color: var(--text-secondary) !important;
+  background: var(--bg-card) !important;
+  transition: all 0.2s ease !important;
+}
+
+.projects__filter-btn:hover {
+  border-color: var(--border) !important;
+  color: var(--text-primary) !important;
+}
+
+.projects__filter-btn--active {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+}
+
+/* ---- Project Card ---- */
+.project-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 18px !important;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  background: var(--bg-card-hover) !important;
+  border-color: var(--border) !important;
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+}
+
+/* Emoji icon box */
+.project-card__emoji {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+}
+
+/* Type badge (e.g. "Web", "Mobile") */
+.project-card__type-badge {
+  background: var(--bg-secondary) !important;
+  color: var(--text-muted) !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border-radius: 50px !important;
+  padding: 0.3rem 0.75rem !important;
+}
+
+.project-card__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 0.15rem !important;
+}
+
+.project-card__subtitle {
+  font-size: 0.8rem;
+  color: var(--accent-light);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.project-card__desc {
+  font-size: 0.87rem !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.7 !important;
+}
+
+/* Key features list */
+.project-card__features {
+  list-style: none;
+  padding: 0; margin: 0 0 1rem;
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+
+.project-card__feature {
+  display: flex; align-items: center; gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.project-card__feature svg { color: var(--accent-2); flex-shrink: 0; }
+
+/* Tech tags */
+.project-card__tech {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.project-card__tech-tag {
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--accent-light);
+  background: var(--accent-glow);
+  border: 1px solid rgba(108,99,255,0.2);
+  padding: 0.22rem 0.6rem;
+  border-radius: 5px;
+}
+
+/* GitHub / Demo links */
+.project-card__link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.82rem; font-weight: 500;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.project-card__link--github {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.project-card__link--github:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.project-card__link--demo {
+  background: var(--accent-glow);
+  color: var(--accent-light);
+  border: 1px solid var(--border);
+}
+
+.project-card__link--demo:hover {
+  background: var(--accent);
+  color: #fff;
+}
