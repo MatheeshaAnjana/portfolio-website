@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/portfolio-website/static/css/main.fcc4f227.css",
+    "main.js": "/portfolio-website/static/js/main.09835ad3.js",
+    "static/media/profile.png": "/portfolio-website/static/media/profile.16df42749bd396a292b0.png",
+    "static/media/Matheesha_Amarathunga_CV.pdf": "/portfolio-website/static/media/Matheesha_Amarathunga_CV.034ab7e7501b56797b7c.pdf",
+    "index.html": "/portfolio-website/index.html",
+    "main.fcc4f227.css.map": "/portfolio-website/static/css/main.fcc4f227.css.map",
+    "main.09835ad3.js.map": "/portfolio-website/static/js/main.09835ad3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fcc4f227.css",
+    "static/js/main.09835ad3.js"
+  ]
+}
