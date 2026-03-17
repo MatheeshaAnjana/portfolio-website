@@ -59,9 +59,8 @@ function Hero() {
 
             {/* Short description */}
             <p className="hero__description">
-              Dedicated software engineering student crafting real-world solutions
-              through React, Flutter, Firebase, and Python. Passionate about clean
-              code and user-centered design.
+              Software Engineering student passionate about UI/UX design and frontend development, 
+              with experience in full-stack web and mobile applications.
             </p>
 
             {/* Action buttons */}
@@ -129,7 +128,10 @@ function Hero() {
               {/* Floating tech badges */}
               <span className="hero__badge-float hero__badge-float--1">⚛️ React</span>
               <span className="hero__badge-float hero__badge-float--2">🐦 Flutter</span>
-              <span className="hero__badge-float hero__badge-float--3">🔥 Firebase</span>
+              <span className="hero__badge-float hero__badge-float--3">🐍 Python</span>
+              <span className="hero__badge-float hero__badge-float--4">🎯 Dart</span>
+              <span className="hero__badge-float hero__badge-float--5">🌐 HTML</span>
+              <span className="hero__badge-float hero__badge-float--6">☕ Java</span>
             </div>
           </Col>
 
