@@ -26,7 +26,7 @@ const SKILL_CATEGORIES = [
   },
   {
     icon: '🛠️', category: 'Tools & SE',
-    skills: ['Git', 'GitHub', 'VS Code', 'XAMPP', 'OOP', 'SDLC', 'UI/UX Principles'],
+    skills: ['Git', 'GitHub', 'VS Code', 'XAMPP', 'OOP', 'UI/UX Principles'],
   },
 ];
 

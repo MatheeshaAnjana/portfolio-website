@@ -5,8 +5,8 @@ import './About.css';
 // Quick stats shown in small cards
 const STATS = [
   { value: '2+', label: 'Years Learning' },
-  { value: '5+', label: 'Projects Built' },
-  { value: '4+', label: 'Certifications' },
+  { value: '10+', label: 'Projects Built' },
+  { value: '5+', label: 'Certifications' },
   { value: '∞',  label: 'Curiosity' },
 ];
 
@@ -39,9 +39,9 @@ function About() {
           {/* ── Left: biography text ── */}
           <Col lg={7}>
             <p className="about__para">
-              I'm a dedicated and passionate Software Engineering student based in
-              Kurunegala, Sri Lanka. With hands-on experience building full-stack web
-              and mobile applications, I thrive on turning ideas into real-world products.
+              I'm a BSc (Hons) Software Engineering undergraduate based in Kurunegala,
+               Sri Lanka, passionate about building meaningful and user-centered digital experiences. With hands-on experience in full-stack development, 
+              I enjoy turning ideas into intuitive and high-performance applications.
             </p>
             <p className="about__para">
               My toolkit spans beautiful UIs with <strong>React.js</strong>, cross-platform
