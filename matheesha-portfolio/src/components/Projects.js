@@ -5,6 +5,18 @@ import './Projects.css';
 // Project data — add GitHub links when you push to GitHub
 const PROJECTS = [
     {
+      title:       'Personal Portfolio Website',
+      subtitle:    'Interactive Developer Portfolio',
+      description: 'A fully custom React portfolio with a deep black × crimson red × Apple liquid glass design system, floating dynamic island navbar, parallax hero, and smooth section animations.',
+      tech:        ['React', 'Bootstrap', 'CSS3', 'JavaScript', 'GitHub Pages'],
+      features:    ['Apple liquid glass UI', 'Dynamic island navbar', 'Dark / Light theme', 'Parallax mouse-tracking hero'],
+      emoji:       '🎨',
+      color:       '#dc2626',
+      type:        'Web',
+      github:      'https://github.com/MatheeshaAnjana/portfolio-website.git',
+      demo:        'https://MatheeshaAnjana.github.io/portfolio-website',
+    },
+    {
       title:       'Smart Gadget Marketplace',
       subtitle:    'Full-Stack E-Commerce System',
       description: 'A full-stack e-commerce marketplace for tech gadgets featuring product management, order processing, activity logging, and real-time analytics using hybrid database integration.',
@@ -13,7 +25,7 @@ const PROJECTS = [
       emoji:       '🛒',
       color:       '#4da6ff',
       type:        'Web',
-      github:      'https://github.com/MatheeshaAnjana',
+      github:      'https://github.com/MatheeshaAnjana/smart-gadget-marketplace-system.git',
       demo:        null,
   },
   {
@@ -25,7 +37,7 @@ const PROJECTS = [
   emoji:       '🌐',
   color:       '#f9ca24',
   type:        'Web',
-  github:      'https://github.com/MatheeshaAnjana',
+  github:      'https://github.com/MatheeshaAnjana/TheTumeric-FoodDeliveryWebSite.git',
   demo:        null,
   },
   {
@@ -37,7 +49,7 @@ const PROJECTS = [
     emoji:       '🍽️',
     color:       '#ff6b6b',
     type:        'Mobile',
-    github:      'https://github.com/MatheeshaAnjana',
+    github:      'https://github.com/MatheeshaAnjana/TheTumeric-FoodDeliveryMobileApp.git',
     demo:        null,
   },
   {
@@ -49,8 +61,8 @@ const PROJECTS = [
     emoji:       '🤖',
     color:       '#00a8ff',
     type:        'Robotics',
-    github:      'https://github.com/MatheeshaAnjana',
-    demo:        null,
+    github:      'https://www.linkedin.com/posts/matheesha-amarathunga_githubcopilot-softwareengineering-learning-ugcPost-7446916550856486913-3-2c?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFxnIVYB2sxjgObYHP-r_6ChfkURfX-CxVk',
+    demo:        'https://www.linkedin.com/feed/update/urn:li:activity:7438821197938589696/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFxnIVYB2sxjgObYHP-r_6ChfkURfX-CxVk',
   },
   {
     title:       'Pet Shop Management System',
@@ -61,7 +73,7 @@ const PROJECTS = [
     emoji:       '🐾',
     color:       '#6c63ff',
     type:        'Web',
-    github:      'https://github.com/MatheeshaAnjana',
+    github:      'https://github.com/Dasanayaka-K-S/pet-shop-management-system.git',
     demo:        null,
   },
   {
@@ -73,7 +85,7 @@ const PROJECTS = [
     emoji:       '🏫',
     color:       '#00d4aa',
     type:        'Web',
-    github:      'https://github.com/MatheeshaAnjana',
+    github:      'https://github.com/MatheeshaAnjana/Smart_Queue_Management_Project.git',
     demo:        null,
   }
 ];
