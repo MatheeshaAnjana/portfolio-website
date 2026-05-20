@@ -26,15 +26,16 @@ function Hero() {
 
   return (
     <section id="hero" className="hero">
+      {/* Ambient orbs */}
       <div className="hero__orb hero__orb--1" ref={orb1Ref} />
       <div className="hero__orb hero__orb--2" ref={orb2Ref} />
       <div className="hero__orb hero__orb--3" ref={orb3Ref} />
       <div className="hero__grid" />
 
       <Container className="hero__container">
-        <Row className="align-items-center gy-5">
+        <Row className="align-items-end gy-5">
 
-          {/* LEFT */}
+          {/* LEFT — Text content */}
           <Col lg={6} className="hero__content">
             <div className="hero__avail-badge">
               <span className="hero__avail-dot" />
@@ -72,7 +73,7 @@ function Hero() {
             </div>
 
             <div className="hero__socials">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hero__social" aria-label="LinkedIn">
+              <a href="https://linkedin.com/in/matheesha-amarathunga-87221a373" target="_blank" rel="noopener noreferrer" className="hero__social" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
                   <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
                   <circle cx="4" cy="4" r="2"/>
@@ -102,22 +103,28 @@ function Hero() {
             </div>
           </Col>
 
-          {/* RIGHT — big circular frame */}
+          {/* RIGHT — Photo */}
           <Col lg={6} className="hero__visual d-flex justify-content-center">
             <div className="hero__img-wrapper">
-              <div className="hero__ring hero__ring--outer" />
-              <div className="hero__ring hero__ring--inner" />
+
+              {/* Red glow floor */}
               <div className="hero__glow-disc" />
 
-              {/* The glass circle frame */}
-              <div className="hero__circle-frame">
-                <img
-                  src={profileImg}
-                  alt="Matheesha Amarathunga"
-                  className="hero__img"
-                />
-              </div>
+              {/* Spinning orbit rings */}
+              <div className="hero__ring hero__ring--outer" />
+              <div className="hero__ring hero__ring--inner" />
 
+              {/* Circle glow backdrop — sits behind the photo */}
+              <div className="hero__circle-backdrop" />
+
+              {/* Profile photo — no clip, transparent bg shows freely */}
+              <img
+                src={profileImg}
+                alt="Matheesha Amarathunga"
+                className="hero__img"
+              />
+
+              {/* Floating liquid-glass tech chips */}
               <span className="hero__chip hero__chip--1">⚛️ React</span>
               <span className="hero__chip hero__chip--2">🐦 Flutter</span>
               <span className="hero__chip hero__chip--3">🐍 Python</span>

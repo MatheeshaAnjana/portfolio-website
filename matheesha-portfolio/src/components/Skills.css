@@ -1,57 +1,96 @@
-/* ---- Skills Section ---- */
+/* ═══════════════════════════════════════════════
+   SKILLS.CSS
+   ═══════════════════════════════════════════════ */
+
+.skills { background: var(--bg-primary); }
+
+/* ── Skill card ── */
 .skills__card {
-  background: var(--bg-card) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 16px !important;
+  background: var(--bg-glass) !important;
+  border: 1px solid var(--border-glass) !important;
+  border-radius: var(--radius-md) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-glass);
   transition: all 0.3s ease;
-  animation: fadeInUp 0.6s ease both;
+  position: relative;
+  overflow: hidden;
+  animation: skillsFadeUp 0.6s ease both;
+}
+
+/* Top shimmer line */
+.skills__card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,38,38,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .skills__card:hover {
-  background: var(--bg-card-hover) !important;
-  border-color: var(--border) !important;
-  transform: translateY(-5px);
-  box-shadow: 0 14px 40px rgba(0,0,0,0.3) !important;
+  border-color: rgba(220,38,38,0.3) !important;
+  transform: translateY(-6px);
+  box-shadow: 0 0 32px rgba(220,38,38,0.1), var(--shadow-glass);
 }
+.skills__card:hover::before { opacity: 1; }
 
+/* Card header */
 .skills__card-header {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.1rem;
-  padding-bottom: 0.9rem;
-  border-bottom: 1px solid var(--border-subtle);
+  gap: 12px;
+  margin-bottom: 1.2rem;
 }
 
-.skills__icon { font-size: 1.35rem; line-height: 1; }
+.skills__icon {
+  font-size: 1.6rem;
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(220,38,38,0.07);
+  border: 1px solid rgba(220,38,38,0.15);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
 
 .skills__category {
-  font-family: var(--font-display);
+  font-family: 'Syne', sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
 }
 
-/* Skill tags */
+/* Tags */
 .skills__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 7px;
 }
 
 .skills__tag {
-  font-size: 0.76rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
   color: var(--text-secondary);
-  background: rgba(108,99,255,0.07);
-  border: 1px solid rgba(108,99,255,0.13);
-  padding: 0.28rem 0.65rem;
-  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  padding: 4px 11px;
   transition: all 0.2s ease;
 }
+[data-theme="light"] .skills__tag {
+  background: rgba(0,0,0,0.04);
+}
+.skills__tag:hover {
+  color: var(--accent-bright);
+  border-color: rgba(220,38,38,0.4);
+  background: rgba(220,38,38,0.06);
+}
 
-.skills__card:hover .skills__tag {
-  background: rgba(108,99,255,0.13);
-  border-color: rgba(108,99,255,0.28);
-  color: var(--text-primary);
+/* Animation */
+@keyframes skillsFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
