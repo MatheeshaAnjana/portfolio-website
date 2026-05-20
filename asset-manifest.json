@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/portfolio-website/static/css/main.1a1b7590.css",
-    "main.js": "/portfolio-website/static/js/main.72f416a1.js",
+    "main.js": "/portfolio-website/static/js/main.7a6211c9.js",
     "static/media/profile.png": "/portfolio-website/static/media/profile.199544ca3bb0fc9b5f05.png",
     "static/media/Matheesha_Amarathunga_CV.pdf": "/portfolio-website/static/media/Matheesha_Amarathunga_CV.100e772a6ba04c4be66b.pdf",
     "index.html": "/portfolio-website/index.html",
     "main.1a1b7590.css.map": "/portfolio-website/static/css/main.1a1b7590.css.map",
-    "main.72f416a1.js.map": "/portfolio-website/static/js/main.72f416a1.js.map"
+    "main.7a6211c9.js.map": "/portfolio-website/static/js/main.7a6211c9.js.map"
   },
   "entrypoints": [
     "static/css/main.1a1b7590.css",
-    "static/js/main.72f416a1.js"
+    "static/js/main.7a6211c9.js"
   ]
 }
