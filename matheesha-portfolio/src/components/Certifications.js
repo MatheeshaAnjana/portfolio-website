@@ -3,6 +3,14 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import './Certifications.css';
 
 const CERTS = [
+    {
+    title:       'Google Network Security Specialization',
+    issuer:      'Google via Coursera',
+    icon:        '🔐',
+    color:       '#34a853',
+    description: 'Covers network security, intrusion detection, hardening, and incident response with tools like Wireshark and Suricata.',
+  },
+
   {
     title:       'Meta Front-End Developer',
     issuer:      'Meta',

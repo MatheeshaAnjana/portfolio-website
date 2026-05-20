@@ -4,6 +4,18 @@ import './Projects.css';
 
 // Project data — add GitHub links when you push to GitHub
 const PROJECTS = [
+    {
+      title:       'Smart Gadget Marketplace',
+      subtitle:    'Full-Stack E-Commerce System',
+      description: 'A full-stack e-commerce marketplace for tech gadgets featuring product management, order processing, activity logging, and real-time analytics using hybrid database integration.',
+      tech:        ['Python', 'Flask', 'Oracle SQL', 'MongoDB', 'HTML', 'CSS', 'JavaScript', 'Bootstrap'],
+      features:    ['Role-based authentication', 'Shopping cart & checkout', 'PL/SQL procedures & triggers', 'Analytics dashboard'],
+      emoji:       '🛒',
+      color:       '#4da6ff',
+      type:        'Web',
+      github:      'https://github.com/MatheeshaAnjana',
+      demo:        null,
+  },
   {
   title:       'AI-Integrated Restaurant Management System',
   subtitle:    'Web Application',
