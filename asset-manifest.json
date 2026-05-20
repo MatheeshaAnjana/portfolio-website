@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/portfolio-website/static/css/main.1af8fedb.css",
-    "main.js": "/portfolio-website/static/js/main.99e9d0ad.js",
-    "static/media/profile.png": "/portfolio-website/static/media/profile.16df42749bd396a292b0.png",
-    "static/media/Matheesha_Amarathunga_CV.pdf": "/portfolio-website/static/media/Matheesha_Amarathunga_CV.f16be5feda442fd4012e.pdf",
+    "main.css": "/portfolio-website/static/css/main.1a1b7590.css",
+    "main.js": "/portfolio-website/static/js/main.72f416a1.js",
+    "static/media/profile.png": "/portfolio-website/static/media/profile.199544ca3bb0fc9b5f05.png",
+    "static/media/Matheesha_Amarathunga_CV.pdf": "/portfolio-website/static/media/Matheesha_Amarathunga_CV.100e772a6ba04c4be66b.pdf",
     "index.html": "/portfolio-website/index.html",
-    "main.1af8fedb.css.map": "/portfolio-website/static/css/main.1af8fedb.css.map",
-    "main.99e9d0ad.js.map": "/portfolio-website/static/js/main.99e9d0ad.js.map"
+    "main.1a1b7590.css.map": "/portfolio-website/static/css/main.1a1b7590.css.map",
+    "main.72f416a1.js.map": "/portfolio-website/static/js/main.72f416a1.js.map"
   },
   "entrypoints": [
-    "static/css/main.1af8fedb.css",
-    "static/js/main.99e9d0ad.js"
+    "static/css/main.1a1b7590.css",
+    "static/js/main.72f416a1.js"
   ]
 }
