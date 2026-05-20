@@ -14,7 +14,24 @@
   background: var(--bg-primary);
 }
 
-/* ── Ambient parallax orbs ── */
+/* ── Light mode orbs & grid ── */
+[data-theme="light"] .hero__orb--1 {
+  background: radial-gradient(circle, rgba(220,38,38,0.08) 0%, transparent 70%);
+}
+[data-theme="light"] .hero__orb--2 {
+  background: radial-gradient(circle, rgba(185,28,28,0.06) 0%, transparent 70%);
+}
+[data-theme="light"] .hero__orb--3 {
+  background: radial-gradient(circle, rgba(239,68,68,0.04) 0%, transparent 70%);
+}
+[data-theme="light"] .hero__grid {
+  background-image: radial-gradient(rgba(220,38,38,0.07) 1px, transparent 1px);
+}
+[data-theme="light"] .hero__img {
+  filter: drop-shadow(0 0 20px rgba(220,38,38,0.10)) drop-shadow(0 8px 30px rgba(0,0,0,0.15));
+}
+
+/* Ambient orbs */
 .hero__orb {
   position: absolute;
   border-radius: 50%;
@@ -330,6 +347,30 @@
     transparent 70%);
   border-radius: 0 0 50% 50%;
   pointer-events: none;
+}
+
+/* ── Light mode circle backdrop ── */
+[data-theme="light"] .hero__circle-backdrop {
+  background:
+    radial-gradient(ellipse at 38% 28%, rgba(255,255,255,0.70) 0%, transparent 55%),
+    radial-gradient(ellipse at 65% 72%, rgba(220,38,38,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(245,235,235,0.92) 0%, rgba(230,215,215,0.96) 70%, transparent 100%);
+  border: 1px solid rgba(220,38,38,0.15);
+  box-shadow:
+    0 0 80px  rgba(220,38,38,0.14),
+    0 0 160px rgba(220,38,38,0.06),
+    inset 0 1.5px 0 rgba(255,255,255,0.90),
+    inset 0 -1.5px 0 rgba(220,38,38,0.08),
+    0 40px 80px rgba(0,0,0,0.12);
+}
+[data-theme="light"] .hero__glow-disc {
+  background: radial-gradient(ellipse, rgba(220,38,38,0.20) 0%, transparent 70%);
+}
+[data-theme="light"] .hero__ring--outer {
+  border-color: rgba(220,38,38,0.10);
+}
+[data-theme="light"] .hero__ring--inner {
+  border-color: rgba(220,38,38,0.06);
 }
 
 /* ── KEEP these hidden (no clip-frame needed) ── */

@@ -66,6 +66,5 @@
 }
 .footer__logo-link:hover { opacity: 0.8; }
 
-/* In light mode keep the SVG MA text dark */
-[data-theme="light"] .footer__logo-link svg text:first-of-type { fill: #111; }
-[data-theme="light"] .footer__logo-link svg text:last-of-type  { fill: #dc2626; }
+/* In light mode keep the SVG MA text readable */
+[data-theme="light"] .footer__logo-link .logo-m { fill: #111111; }

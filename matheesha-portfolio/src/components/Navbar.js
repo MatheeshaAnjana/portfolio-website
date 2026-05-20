@@ -13,59 +13,61 @@ const NAV_LINKS = [
 /* ── Concept F Logo — reused in Navbar & Footer ── */
 export function LogoMark({ size = 'md' }) {
   const s = size === 'sm' ? 0.78 : size === 'lg' ? 1.25 : 1;
-  const w = Math.round(112 * s);
+  const w = Math.round(124 * s);
   const h = Math.round(48 * s);
   return (
     <svg
       width={w}
       height={h}
-      viewBox="0 0 112 48"
+      viewBox="0 0 124 48"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="Matheesha Amarathunga logo"
+      style={{ overflow: 'visible' }}
     >
       {/* Angular left-chevron bracket */}
       <path
-        d="M22 2 L6 24 L22 46"
+        d="M20 2 L4 24 L20 46"
         stroke="#dc2626"
         strokeWidth="2.8"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
-      {/* Faint second echo line for depth */}
+      {/* Faint echo line for depth */}
       <path
-        d="M28 8 L16 24 L28 40"
+        d="M26 8 L14 24 L26 40"
         stroke="rgba(220,38,38,0.22)"
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
-      {/* M — white */}
+      {/* M — white/dark depending on theme, handled via CSS */}
       <text
-        x="38"
-        y="33"
+        x="34"
+        y="34"
         fontFamily="'Syne', system-ui, sans-serif"
         fontSize="26"
         fontWeight="800"
-        fill="white"
-        letterSpacing="-1.5"
+        fill="currentColor"
+        letterSpacing="-1"
+        className="logo-m"
       >M</text>
-      {/* A — red */}
+      {/* A — always red */}
       <text
-        x="64"
-        y="33"
+        x="61"
+        y="34"
         fontFamily="'Syne', system-ui, sans-serif"
         fontSize="26"
         fontWeight="800"
         fill="#dc2626"
-        letterSpacing="-1.5"
+        letterSpacing="-1"
       >A</text>
       {/* Red underline bar */}
-      <rect x="38" y="37" width="52" height="2.5" rx="1.25" fill="#dc2626" />
-      {/* Dot accent after underline */}
-      <circle cx="96" cy="38.25" r="2.5" fill="#dc2626" />
+      <rect x="34" y="38" width="56" height="2.5" rx="1.25" fill="#dc2626" />
+      {/* Dot accent */}
+      <circle cx="96" cy="39.25" r="2.5" fill="#dc2626" />
     </svg>
   );
 }

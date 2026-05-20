@@ -78,6 +78,10 @@
       rgba(245,245,245,0.80) 100%);
 }
 
+/* Logo M letter — white in dark, dark in light */
+.logo-m { fill: white; }
+[data-theme="light"] .logo-m { fill: #111111; }
+
 /* ── Logo icon (legacy - replaced by SVG LogoMark) ── */
 .di-logo-icon { display: none; }
 
