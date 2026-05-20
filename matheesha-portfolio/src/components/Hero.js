@@ -73,7 +73,7 @@ function Hero() {
             </div>
 
             <div className="hero__socials">
-              <a href="https://linkedin.com/in/matheesha-amarathunga-87221a373" target="_blank" rel="noopener noreferrer" className="hero__social" aria-label="LinkedIn">
+              <a href="https://linkedin.com/in/matheesha-amarathunga" target="_blank" rel="noopener noreferrer" className="hero__social" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
                   <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
                   <circle cx="4" cy="4" r="2"/>

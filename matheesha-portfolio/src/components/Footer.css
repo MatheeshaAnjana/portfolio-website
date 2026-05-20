@@ -57,3 +57,15 @@
   margin: 0;
   letter-spacing: 0.03em;
 }
+
+/* ── Logo link wrapper ── */
+.footer__logo-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.footer__logo-link:hover { opacity: 0.8; }
+
+/* In light mode keep the SVG MA text dark */
+[data-theme="light"] .footer__logo-link svg text:first-of-type { fill: #111; }
+[data-theme="light"] .footer__logo-link svg text:last-of-type  { fill: #dc2626; }
