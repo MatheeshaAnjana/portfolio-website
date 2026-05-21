@@ -11,6 +11,7 @@
   background: transparent;
   border: none;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .projects__filter-btn {
@@ -26,6 +27,9 @@
   -webkit-backdrop-filter: blur(12px);
   transition: all 0.2s ease !important;
   letter-spacing: 0.03em;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
 .projects__filter-btn:hover {
   color: var(--text-primary) !important;
@@ -37,6 +41,11 @@
   border-color: var(--accent) !important;
   color: #fff !important;
   box-shadow: 0 0 20px rgba(220,38,38,0.3) !important;
+}
+
+.projects__filter-icon {
+  font-size: 0.82rem;
+  line-height: 1;
 }
 
 /* ── Project Card ── */
@@ -67,7 +76,7 @@
 }
 .project-card:hover::before { opacity: 1; }
 
-/* Card top */
+/* ── Card top ── */
 .project-card__emoji {
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
@@ -89,7 +98,7 @@
   padding: 4px 10px !important;
 }
 
-/* Text */
+/* ── Text ── */
 .project-card__title {
   font-family: 'Syne', sans-serif !important;
   font-size: 1.05rem !important;
@@ -111,7 +120,7 @@
   font-weight: 300;
 }
 
-/* Features */
+/* ── Features ── */
 .project-card__features {
   list-style: none;
   padding: 0; margin: 0 0 1rem;
@@ -126,7 +135,7 @@
 }
 .project-card__feature svg { color: var(--accent); flex-shrink: 0; }
 
-/* Tech tags */
+/* ── Tech tags ── */
 .project-card__tech {
   display: flex;
   flex-wrap: wrap;
@@ -145,7 +154,7 @@
 }
 [data-theme="light"] .project-card__tech-tag { background: rgba(0,0,0,0.04); }
 
-/* Links */
+/* ── Links ── */
 .project-card__link {
   display: inline-flex;
   align-items: center;

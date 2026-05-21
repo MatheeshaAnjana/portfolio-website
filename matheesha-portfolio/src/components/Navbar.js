@@ -6,7 +6,7 @@ const NAV_LINKS = [
   { label: 'About',    href: '#about' },
   { label: 'Skills',   href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Certs',    href: '#certifications' },
+  { label: 'Certifications',    href: '#certifications' },
   { label: 'Contact',  href: '#contact' },
 ];
 
@@ -149,7 +149,12 @@ function Navbar({ scrolled, theme, toggleTheme }) {
               <span className="di-theme-label">{theme === 'dark' ? 'Light' : 'Dark'}</span>
             </button>
 
-            <a href="mailto:matheeshaanjana01@gmail.com" className="di-cta">Hire Me</a>
+            <a
+              href="https://mail.google.com/mail/?view=cm&to=matheeshaanjana01@gmail.com&su=Hiring%20Inquiry%20%E2%80%93%20Let%27s%20Work%20Together&body=Hi%20Matheesha%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27d%20love%20to%20discuss%20a%20potential%20opportunity%20with%20you.%0A%0AName%3A%20%0ACompany%2FProject%3A%20%0ADetails%3A%20%0A%0ALooking%20forward%20to%20hearing%20from%20you!%0A%0ARegards%2C"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="di-cta"
+            >Hire Me</a>
 
             <button
               className={`di-hamburger ${menuOpen ? 'di-hamburger--open' : ''}`}
@@ -184,7 +189,12 @@ function Navbar({ scrolled, theme, toggleTheme }) {
           <button className="di-theme-toggle" onClick={toggleTheme}>
             {theme === 'dark' ? '☀ Light mode' : '☾ Dark mode'}
           </button>
-          <a href="mailto:matheeshaanjana01@gmail.com" className="di-cta di-cta--block">Hire Me</a>
+          <a
+              href="https://mail.google.com/mail/?view=cm&to=matheeshaanjana01@gmail.com&su=Hiring%20Inquiry%20%E2%80%93%20Let%27s%20Work%20Together&body=Hi%20Matheesha%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27d%20love%20to%20discuss%20a%20potential%20opportunity%20with%20you.%0A%0AName%3A%20%0ACompany%2FProject%3A%20%0ADetails%3A%20%0A%0ALooking%20forward%20to%20hearing%20from%20you!%0A%0ARegards%2C"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="di-cta di-cta--block"
+            >Hire Me</a>
         </div>
       </div>
 

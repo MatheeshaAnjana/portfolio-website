@@ -2,43 +2,42 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Badge, ButtonGroup, Button } from 'react-bootstrap';
 import './Projects.css';
 
-// Project data — add GitHub links when you push to GitHub
 const PROJECTS = [
-    {
-      title:       'Personal Portfolio Website',
-      subtitle:    'Interactive Developer Portfolio',
-      description: 'A fully custom React portfolio with a deep black × crimson red × Apple liquid glass design system, floating dynamic island navbar, parallax hero, and smooth section animations.',
-      tech:        ['React', 'Bootstrap', 'CSS3', 'JavaScript', 'GitHub Pages'],
-      features:    ['Apple liquid glass UI', 'Dynamic island navbar', 'Dark / Light theme', 'Parallax mouse-tracking hero'],
-      emoji:       '🎨',
-      color:       '#dc2626',
-      type:        'Web',
-      github:      'https://github.com/MatheeshaAnjana/portfolio-website.git',
-      demo:        'https://MatheeshaAnjana.github.io/portfolio-website',
-    },
-    {
-      title:       'Smart Gadget Marketplace',
-      subtitle:    'Full-Stack E-Commerce System',
-      description: 'A full-stack e-commerce marketplace for tech gadgets featuring product management, order processing, activity logging, and real-time analytics using hybrid database integration.',
-      tech:        ['Python', 'Flask', 'Oracle SQL', 'MongoDB', 'HTML', 'CSS', 'JavaScript', 'Bootstrap'],
-      features:    ['Role-based authentication', 'Shopping cart & checkout', 'PL/SQL procedures & triggers', 'Analytics dashboard'],
-      emoji:       '🛒',
-      color:       '#4da6ff',
-      type:        'Web',
-      github:      'https://github.com/MatheeshaAnjana/smart-gadget-marketplace-system.git',
-      demo:        null,
+  {
+    title:       'Personal Portfolio Website',
+    subtitle:    'Interactive Developer Portfolio',
+    description: 'A fully custom React portfolio with a deep black × crimson red × Apple liquid glass design system, floating dynamic island navbar, parallax hero, and smooth section animations.',
+    tech:        ['React', 'Bootstrap', 'CSS3', 'JavaScript', 'GitHub Pages'],
+    features:    ['Apple liquid glass UI', 'Dynamic island navbar', 'Dark / Light theme', 'Parallax mouse-tracking hero'],
+    emoji:       '🎨',
+    color:       '#dc2626',
+    type:        'Web',
+    github:      'https://github.com/MatheeshaAnjana/portfolio-website.git',
+    demo:        'https://MatheeshaAnjana.github.io/portfolio-website',
   },
   {
-  title:       'AI-Integrated Restaurant Management System',
-  subtitle:    'Web Application',
-  description: 'A web-based restaurant management platform with admin dashboard, order tracking, and analytics to streamline operations and support data-driven decision making.',
-  tech:        ['HTML', 'CSS', 'JavaScript', 'PHP', 'Firebase'],
-  features:    ['Admin dashboard', 'Order & menu management', 'Customer & staff management', 'Sales analytics'],
-  emoji:       '🌐',
-  color:       '#f9ca24',
-  type:        'Web',
-  github:      'https://github.com/MatheeshaAnjana/TheTumeric-FoodDeliveryWebSite.git',
-  demo:        null,
+    title:       'Smart Gadget Marketplace',
+    subtitle:    'Full-Stack E-Commerce System',
+    description: 'A full-stack e-commerce marketplace for tech gadgets featuring product management, order processing, activity logging, and real-time analytics using hybrid database integration.',
+    tech:        ['Python', 'Flask', 'Oracle SQL', 'MongoDB', 'HTML', 'CSS', 'JavaScript', 'Bootstrap'],
+    features:    ['Role-based authentication', 'Shopping cart & checkout', 'PL/SQL procedures & triggers', 'Analytics dashboard'],
+    emoji:       '🛒',
+    color:       '#4da6ff',
+    type:        'Web',
+    github:      'https://github.com/MatheeshaAnjana/smart-gadget-marketplace-system.git',
+    demo:        null,
+  },
+  {
+    title:       'AI-Integrated Restaurant Management System',
+    subtitle:    'Web Application',
+    description: 'A web-based restaurant management platform with admin dashboard, order tracking, and analytics to streamline operations and support data-driven decision making.',
+    tech:        ['HTML', 'CSS', 'JavaScript', 'PHP', 'Firebase'],
+    features:    ['Admin dashboard', 'Order & menu management', 'Customer & staff management', 'Sales analytics'],
+    emoji:       '🌐',
+    color:       '#f9ca24',
+    type:        'Web',
+    github:      'https://github.com/MatheeshaAnjana/TheTumeric-FoodDeliveryWebSite.git',
+    demo:        null,
   },
   {
     title:       'Restaurant Management System',
@@ -87,18 +86,27 @@ const PROJECTS = [
     type:        'Web',
     github:      'https://github.com/MatheeshaAnjana/Smart_Queue_Management_Project.git',
     demo:        null,
-  }
+  },
 ];
 
-const FILTERS = ['All', 'Web', 'Mobile'];
+const FILTERS = [
+  { label: 'All',      icon: null },
+  { label: 'Web',      icon: '🌐' },
+  { label: 'Mobile',   icon: '📱' },
+  { label: 'Robotics', icon: '🤖' },
+];
 
 function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
 
-  // Filter projects based on selected tab
   const visible = activeFilter === 'All'
     ? PROJECTS
     : PROJECTS.filter((p) => p.type === activeFilter);
+
+  const getRoboticsLinkLabel = (project) => {
+    if (project.type === 'Robotics') return 'LinkedIn';
+    return 'GitHub';
+  };
 
   return (
     <section id="projects" className="projects section-border-top" style={{ background: 'var(--bg-secondary)' }}>
@@ -109,16 +117,17 @@ function Projects() {
           Real-world applications built with modern technologies, from mobile apps to full-stack web systems.
         </p>
 
-        {/* Filter buttons using Bootstrap ButtonGroup */}
+        {/* Filter buttons */}
         <ButtonGroup className="projects__filters mb-4">
           {FILTERS.map((f) => (
             <Button
-              key={f}
-              variant={activeFilter === f ? 'primary' : 'outline-secondary'}
-              className={`projects__filter-btn ${activeFilter === f ? 'projects__filter-btn--active' : ''}`}
-              onClick={() => setActiveFilter(f)}
+              key={f.label}
+              variant={activeFilter === f.label ? 'primary' : 'outline-secondary'}
+              className={`projects__filter-btn ${activeFilter === f.label ? 'projects__filter-btn--active' : ''} ${f.label === 'Robotics' ? 'projects__filter-btn--robotics' : ''}`}
+              onClick={() => setActiveFilter(f.label)}
             >
-              {f}
+              {f.icon && <span className="projects__filter-icon">{f.icon}</span>}
+              {f.label}
             </Button>
           ))}
         </ButtonGroup>
@@ -127,10 +136,10 @@ function Projects() {
         <Row className="g-4">
           {visible.map((project, i) => (
             <Col key={`${project.title}-${i}`} lg={6}>
-              <Card className="project-card h-100">
+              <Card className={`project-card h-100 ${project.type === 'Robotics' ? 'project-card--robotics' : ''}`}>
                 <Card.Body className="d-flex flex-column">
 
-                  {/* Card top row: emoji icon + type badge */}
+                  {/* Top row */}
                   <div className="project-card__top d-flex justify-content-between align-items-center mb-3">
                     <div
                       className="project-card__emoji"
@@ -138,7 +147,11 @@ function Projects() {
                     >
                       {project.emoji}
                     </div>
-                    <Badge className="project-card__type-badge">{project.type}</Badge>
+                    <Badge
+                      className={`project-card__type-badge ${project.type === 'Robotics' ? 'project-card__type-badge--robotics' : ''}`}
+                    >
+                      {project.type}
+                    </Badge>
                   </div>
 
                   {/* Title & subtitle */}
@@ -148,7 +161,7 @@ function Projects() {
                   {/* Description */}
                   <Card.Text className="project-card__desc">{project.description}</Card.Text>
 
-                  {/* Key features list */}
+                  {/* Features */}
                   <ul className="project-card__features">
                     {project.features.map((f) => (
                       <li key={f} className="project-card__feature">
@@ -167,7 +180,7 @@ function Projects() {
                     ))}
                   </div>
 
-                  {/* Action links pushed to bottom */}
+                  {/* Links */}
                   <div className="d-flex gap-2 mt-auto">
                     <a
                       href={project.github}
@@ -175,13 +188,21 @@ function Projects() {
                       rel="noopener noreferrer"
                       className="project-card__link project-card__link--github"
                     >
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
-                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                      </svg>
-                      GitHub
+                      {project.type === 'Robotics' ? (
+                        /* LinkedIn icon for robotics */
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                          <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                      ) : (
+                        /* GitHub icon */
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                          <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                      )}
+                      {getRoboticsLinkLabel(project)}
                     </a>
 
-                    {/* Show Live Demo link only when available */}
                     {project.demo && (
                       <a
                         href={project.demo}
@@ -192,7 +213,7 @@ function Projects() {
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14">
                           <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
                         </svg>
-                        Live Demo
+                        {project.type === 'Robotics' ? 'View Post' : 'Live Demo'}
                       </a>
                     )}
                   </div>

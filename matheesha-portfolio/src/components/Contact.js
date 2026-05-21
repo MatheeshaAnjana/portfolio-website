@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import './Contact.css';
 
-// Contact detail items
 const CONTACT_ITEMS = [
   {
     icon: (
@@ -12,7 +11,7 @@ const CONTACT_ITEMS = [
     ),
     label: 'Email',
     value: 'matheeshaanjana01@gmail.com',
-    href:  'mailto:matheeshaanjana01@gmail.com',
+    href:  'https://mail.google.com/mail/?view=cm&to=matheeshaanjana01@gmail.com',
   },
   {
     icon: (
@@ -58,18 +57,21 @@ const CONTACT_ITEMS = [
 ];
 
 function Contact() {
-  // Form field state
-  const [form, setForm]       = useState({ name: '', email: '', message: '' });
-  const [sent, setSent]       = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [sent, setSent] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // Opens user's email client pre-filled with the message
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, message } = form;
-    const mailto = `mailto:matheeshaanjana01@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-    window.location.href = mailto;
+    // Opens Gmail compose in a new tab — not the OS mail client
+    const gmailUrl =
+      `https://mail.google.com/mail/?view=cm` +
+      `&to=matheeshaanjana01@gmail.com` +
+      `&su=${encodeURIComponent(`Portfolio Contact from ${name}`)}` +
+      `&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+    window.open(gmailUrl, '_blank');
     setSent(true);
     setTimeout(() => setSent(false), 4000);
   };
@@ -86,7 +88,7 @@ function Contact() {
 
         <Row className="gy-5 align-items-start">
 
-          {/* ── Left: contact info cards ── */}
+          {/* Left: contact info cards */}
           <Col lg={4}>
             <div className="d-flex flex-column gap-3">
               {CONTACT_ITEMS.map((item) => (
@@ -96,7 +98,7 @@ function Contact() {
                     <div>
                       <p className="contact-info-card__label">{item.label}</p>
                       {item.href
-                        ? <a href={item.href} className="contact-info-card__value contact-info-card__link" target={item.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">{item.value}</a>
+                        ? <a href={item.href} className="contact-info-card__value contact-info-card__link" target="_blank" rel="noopener noreferrer">{item.value}</a>
                         : <p className="contact-info-card__value">{item.value}</p>
                       }
                     </div>
@@ -106,11 +108,10 @@ function Contact() {
             </div>
           </Col>
 
-          {/* ── Right: contact form ── */}
+          {/* Right: contact form */}
           <Col lg={8}>
             <Card className="contact-form-card">
               <Card.Body className="p-4 p-lg-5">
-                {/* Bootstrap Form component */}
                 <Form onSubmit={handleSubmit}>
                   <Row className="g-3">
                     <Col md={6}>
@@ -163,7 +164,7 @@ function Contact() {
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                               <polyline points="20 6 9 17 4 12"/>
                             </svg>
-                            Message Sent!
+                            Opening Gmail…
                           </>
                         ) : (
                           <>
