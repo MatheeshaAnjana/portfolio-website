@@ -1,16 +1,15 @@
 /* ═══════════════════════════════════════════════
    HERO.CSS  –  Black × Red × Apple Liquid Glass
-   No clip frame — open circle glow behind image
-   Image anchored to section bottom, oversized
    ═══════════════════════════════════════════════ */
 
 .hero {
-  min-height: 100vh;
+  min-height: calc(100vh - 72px);
+  max-height: calc(100vh - 7px);
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: 5.5rem 0 0;           /* no bottom pad — image bleeds to edge */
+  padding: 4rem 0 0;
   background: var(--bg-primary);
 }
 
@@ -31,7 +30,7 @@
   filter: drop-shadow(0 0 20px rgba(220,38,38,0.10)) drop-shadow(0 8px 30px rgba(0,0,0,0.15));
 }
 
-/* Ambient orbs */
+/* ── Ambient parallax orbs ── */
 .hero__orb {
   position: absolute;
   border-radius: 50%;
@@ -73,17 +72,19 @@
    ══════════════════════════════════ */
 .hero__content {
   animation: heroFadeUp 0.8s ease both;
-  padding-bottom: 3rem;        /* give breathing room above the section bottom */
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Available badge — Apple liquid glass pill */
+/* ── Available badge — compact pill (not full width) ── */
 .hero__avail-badge {
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   gap: 8px;
-  /* Liquid glass: layered backgrounds */
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
   border: 1px solid rgba(255,255,255,0.14);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.18),
@@ -94,12 +95,13 @@
   font-family: 'DM Sans', sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
-  padding: 0.42rem 1.1rem;
+  padding: 0.38rem 1rem;
   border-radius: 9999px;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.2rem;
   letter-spacing: 0.05em;
   backdrop-filter: blur(20px) saturate(1.6);
   -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  width: fit-content;
 }
 [data-theme="light"] .hero__avail-badge {
   background: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.35) 100%);
@@ -110,37 +112,38 @@
 
 .hero__avail-dot {
   width: 7px; height: 7px;
+  flex-shrink: 0;
   background: var(--accent);
   border-radius: 50%;
   box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(220,38,38,0.5);
   animation: heroPulse 2.2s ease infinite;
 }
 
-/* Title */
+/* ── Title ── */
 .hero__title {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   line-height: 1.03;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 .hero__greeting {
   display: block;
-  font-size: clamp(0.78rem, 1.3vw, 0.95rem);
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
   color: var(--text-muted);
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
 }
 .hero__name {
-  font-size: clamp(3rem, 6vw, 5rem);
+  font-size: clamp(2.4rem, 5vw, 4rem);
   color: var(--text-primary);
   letter-spacing: -0.03em;
   line-height: 1.0;
 }
 .hero__name--sub {
-  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-size: clamp(1.7rem, 3.6vw, 2.9rem);
   color: var(--accent);
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -149,24 +152,15 @@
 
 .hero__role {
   font-family: 'DM Sans', sans-serif;
-  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-size: clamp(0.92rem, 1.6vw, 1.1rem);
   color: var(--text-secondary);
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
   font-weight: 300;
 }
 .hero__role-hl { color: var(--text-primary); font-weight: 600; }
 
-.hero__desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.9;
-  max-width: 460px;
-  margin-bottom: 1.4rem;
-  font-weight: 300;
-}
-
-/* Buttons */
-.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 2.2rem; }
+/* ── Buttons ── */
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.6rem; }
 
 .hero__btn-primary {
   display: inline-flex;
@@ -192,14 +186,11 @@
   box-shadow: 0 0 50px rgba(220,38,38,0.58), inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
-/* Secondary — Apple liquid glass button */
 .hero__btn-secondary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  /* Liquid glass layers */
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 100%);
   color: var(--text-secondary);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.88rem;
@@ -226,12 +217,10 @@
   border-color: rgba(220,38,38,0.35);
   background: linear-gradient(135deg, rgba(220,38,38,0.10) 0%, rgba(220,38,38,0.04) 100%);
   transform: translateY(-2px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.20),
-    0 0 24px rgba(220,38,38,0.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 0 24px rgba(220,38,38,0.15);
 }
 
-/* Socials — liquid glass icons */
+/* ── Socials ── */
 .hero__socials { display: flex; gap: 9px; flex-wrap: wrap; }
 .hero__social {
   display: flex;
@@ -272,25 +261,25 @@
 
 /* ══════════════════════════════════
    RIGHT — PHOTO VISUAL
-   No clip frame. Open circle glow backdrop.
-   Image large, anchored to section bottom.
    ══════════════════════════════════ */
 .hero__visual {
   animation: heroFadeIn 1s 0.2s ease both;
-  /* pin the column to the bottom of the hero row */
-  align-self: flex-end;
+  align-self: stretch;
+  display: flex !important;
+  align-items: flex-end;
 }
 
 .hero__img-wrapper {
   position: relative;
   width: 520px;
-  height: 620px;       /* tall enough to let image bleed */
+  height: 100%;
+  min-height: 560px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 
-/* ── CIRCLE GLOW BACKDROP (replaces the clipping frame) ── */
+/* ── Circle glow backdrop ── */
 .hero__circle-backdrop {
   position: absolute;
   bottom: 0;
@@ -301,55 +290,39 @@
   border-radius: 50%;
   z-index: 1;
   pointer-events: none;
-
-  /* Apple liquid glass circle — layered translucent fills */
   background:
     radial-gradient(ellipse at 38% 28%, rgba(255,255,255,0.07) 0%, transparent 55%),
     radial-gradient(ellipse at 65% 72%, rgba(220,38,38,0.09) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 50%, rgba(30,10,10,0.75) 0%, rgba(15,5,5,0.92) 70%, transparent 100%);
-
-  /* Subtle glass border ring */
   border: 1px solid rgba(255,255,255,0.08);
-
-  /* Liquid glass multi-layer shadow */
   box-shadow:
-    /* outer red atmospheric glow */
     0 0 80px  rgba(220,38,38,0.22),
     0 0 160px rgba(220,38,38,0.10),
     0 0 300px rgba(220,38,38,0.06),
-    /* inner specular highlight ring */
     inset 0 1.5px 0 rgba(255,255,255,0.14),
     inset 0 -1.5px 0 rgba(220,38,38,0.10),
-    /* soft depth shadow */
     0 40px 80px rgba(0,0,0,0.55);
 }
-/* Top-arc gloss shine — liquid glass specular */
 .hero__circle-backdrop::before {
   content: '';
   position: absolute;
   top: 4%; left: 12%; right: 12%;
   height: 38%;
   background: radial-gradient(ellipse at 50% 0%,
-    rgba(255,255,255,0.13) 0%,
-    rgba(255,255,255,0.04) 40%,
-    transparent 100%);
+    rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.04) 40%, transparent 100%);
   border-radius: 50% 50% 60% 60%;
   pointer-events: none;
 }
-/* Bottom-arc subtle gradient — ground the circle */
 .hero__circle-backdrop::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 35%;
-  background: radial-gradient(ellipse at 50% 100%,
-    rgba(220,38,38,0.18) 0%,
-    transparent 70%);
+  background: radial-gradient(ellipse at 50% 100%, rgba(220,38,38,0.18) 0%, transparent 70%);
   border-radius: 0 0 50% 50%;
   pointer-events: none;
 }
 
-/* ── Light mode circle backdrop ── */
 [data-theme="light"] .hero__circle-backdrop {
   background:
     radial-gradient(ellipse at 38% 28%, rgba(255,255,255,0.70) 0%, transparent 55%),
@@ -366,17 +339,12 @@
 [data-theme="light"] .hero__glow-disc {
   background: radial-gradient(ellipse, rgba(220,38,38,0.20) 0%, transparent 70%);
 }
-[data-theme="light"] .hero__ring--outer {
-  border-color: rgba(220,38,38,0.10);
-}
-[data-theme="light"] .hero__ring--inner {
-  border-color: rgba(220,38,38,0.06);
-}
+[data-theme="light"] .hero__ring--outer { border-color: rgba(220,38,38,0.10); }
+[data-theme="light"] .hero__ring--inner { border-color: rgba(220,38,38,0.06); }
 
-/* ── KEEP these hidden (no clip-frame needed) ── */
 .hero__circle-frame { display: none; }
 
-/* Dashed spinning rings around the backdrop */
+/* ── Spinning rings ── */
 .hero__ring {
   position: absolute;
   bottom: 0;
@@ -391,7 +359,6 @@
   border-color: rgba(220,38,38,0.10);
   border-style: dashed;
   animation: heroSpinSlow 36s linear infinite;
-  /* center properly */
   transform-origin: 50% 50%;
   bottom: -30px;
 }
@@ -403,10 +370,10 @@
   bottom: -10px;
 }
 
-/* Red glow pool at floor — ground shadow */
+/* ── Red glow floor ── */
 .hero__glow-disc {
   position: absolute;
-  bottom: -10px; left: 50%;
+  bottom: 0; left: 50%;
   transform: translateX(-50%);
   width: 380px; height: 70px;
   background: radial-gradient(ellipse, rgba(220,38,38,0.45) 0%, transparent 70%);
@@ -416,30 +383,24 @@
   z-index: 0;
 }
 
-/* ── PROFILE IMAGE — large, bottom-anchored, no clip ── */
+/* ── Profile image ── */
 .hero__img {
   position: relative;
-  z-index: 3;                   /* above backdrop circle */
-  /* Tall: let the image run from feet to well above the circle */
-  height: 680px;
+  z-index: 3;
+  height: 100%;
+  max-height: 720px;
   width: auto;
   max-width: none;
   display: block;
   object-fit: contain;
   object-position: bottom center;
-  /* Subtle shadow to separate from bg */
-  filter:
-    drop-shadow(0 0 30px rgba(220,38,38,0.18))
-    drop-shadow(0 -4px 60px rgba(0,0,0,0.0));
-  /* Anchor feet to bottom */
   align-self: flex-end;
-  margin-bottom: 0;
+  filter: drop-shadow(0 0 30px rgba(220,38,38,0.18));
 }
 
-/* ── Floating tech chips — Apple liquid glass ── */
+/* ── Floating tech chips ── */
 .hero__chip {
   position: absolute;
-  /* Liquid glass: semi-opaque frosted fill */
   background:
     linear-gradient(135deg,
       rgba(255,255,255,0.13) 0%,
@@ -452,11 +413,9 @@
   font-size: 0.73rem;
   font-weight: 500;
   color: rgba(255,255,255,0.80);
-  /* Heavy blur — real glass feel */
   backdrop-filter: blur(28px) saturate(1.8) brightness(1.1);
   -webkit-backdrop-filter: blur(28px) saturate(1.8) brightness(1.1);
   white-space: nowrap;
-  /* Multi-layer Apple-style shadow */
   box-shadow:
     inset 0 1.5px 0 rgba(255,255,255,0.28),
     inset 0 -1px 0 rgba(0,0,0,0.12),
@@ -496,13 +455,12 @@
   transform: scale(1.04);
 }
 
-/* chip positions — spread around the circle */
-.hero__chip--1 { top:  40px;   right: -10px;  animation-delay: 0.0s; }
-.hero__chip--2 { top:  110px;  left:  -65px;  animation-delay: 1.2s; }
-.hero__chip--3 { top:  46%;    right: -60px;  animation-delay: 2.5s; }
-.hero__chip--4 { bottom: 220px; left: -55px;  animation-delay: 0.7s; }
-.hero__chip--5 { bottom: 110px; right: -50px; animation-delay: 1.9s; }
-.hero__chip--6 { bottom:  20px; left:  10px;  animation-delay: 3.1s; }
+.hero__chip--1 { top:  100px;    right: -10px;  animation-delay: 0.0s; }
+.hero__chip--2 { top:  110px;   left:  -65px;  animation-delay: 1.2s; }
+.hero__chip--3 { top:  46%;     right: -60px;  animation-delay: 2.5s; }
+.hero__chip--4 { bottom: 250px; left:  -55px;  animation-delay: 0.7s; }
+.hero__chip--5 { bottom: 110px; right: -50px;  animation-delay: 1.9s; }
+.hero__chip--6 { bottom:  100px; left:   10px;  animation-delay: 3.1s; }
 
 /* ── Scroll hint ── */
 .hero__scroll-hint {
@@ -553,24 +511,24 @@
    RESPONSIVE
    ══════════════════════════════════ */
 @media (max-width: 1200px) {
-  .hero__img-wrapper { width: 460px; height: 560px; }
-  .hero__img { height: 600px; }
+  .hero__img-wrapper { width: 460px; }
+  .hero__img { max-height: 640px; }
   .hero__circle-backdrop { width: 380px; height: 380px; }
   .hero__ring--outer { width: 430px; height: 430px; }
   .hero__ring--inner { width: 340px; height: 340px; }
 }
 
 @media (max-width: 991px) {
-  .hero { text-align: center; padding-top: 7rem; }
-  .hero__visual { order: -1; align-self: auto; }
+  .hero { text-align: center; padding-top: 6rem; max-height: none; min-height: 100vh; }
+  .hero__visual { order: -1; align-self: auto; height: 380px; min-height: 0; }
   .hero__content { padding-bottom: 2rem; }
-  .hero__img-wrapper { width: 320px; height: 380px; }
-  .hero__img { height: 400px; }
+  .hero__img-wrapper { width: 320px; min-height: 0; height: 100%; }
+  .hero__img { max-height: 400px; }
   .hero__circle-backdrop { width: 280px; height: 280px; }
   .hero__ring--outer { width: 330px; height: 330px; }
   .hero__ring--inner { width: 260px; height: 260px; }
   .hero__glow-disc { width: 260px; }
-  .hero__desc { margin-left: auto; margin-right: auto; }
+  .hero__avail-badge { align-self: center; }
   .hero__actions, .hero__socials { justify-content: center; }
   .hero__chip--2, .hero__chip--4 { left: -4px; }
   .hero__chip--3, .hero__chip--5 { right: -4px; }
@@ -578,8 +536,9 @@
 }
 
 @media (max-width: 480px) {
-  .hero__img-wrapper { width: 260px; height: 310px; }
-  .hero__img { height: 320px; }
+  .hero__visual { height: 300px; }
+  .hero__img-wrapper { width: 260px; }
+  .hero__img { max-height: 320px; }
   .hero__circle-backdrop { width: 220px; height: 220px; }
   .hero__ring--outer { width: 268px; height: 268px; }
   .hero__ring--inner { width: 210px; height: 210px; }

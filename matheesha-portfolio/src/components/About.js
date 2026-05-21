@@ -5,8 +5,8 @@ import './About.css';
 // Quick stats shown in small cards
 const STATS = [
   { value: '2+', label: 'Years Learning' },
-  { value: '10+', label: 'Projects Built' },
-  { value: '5+', label: 'Certifications' },
+  { value: '12+', label: 'Projects Built' },
+  { value: '6+', label: 'Certifications' },
   { value: '∞',  label: 'Curiosity' },
 ];
 
@@ -39,22 +39,30 @@ function About() {
           {/* ── Left: biography text ── */}
           <Col lg={7}>
             <p className="about__para">
-              I'm a BSc (Hons) Software Engineering undergraduate based in Kurunegala,
-               Sri Lanka, passionate about building meaningful and user-centered digital experiences. With hands-on experience in full-stack development, 
-              I enjoy turning ideas into intuitive and high-performance applications.
-            </p>
-            <p className="about__para">
-              My toolkit spans beautiful UIs with <strong>React.js</strong>, cross-platform
-              mobile apps with <strong>Flutter</strong>, and backend systems using{' '}
-              <strong>PHP</strong>, <strong>Flask</strong>, <strong>MySQL</strong>, and{' '}
-              <strong>Firebase</strong>. I'm equally comfortable designing database schemas
-              and crafting pixel-perfect interfaces.
-            </p>
-            <p className="about__para">
-              Currently pursuing my Higher National Diploma in Software Engineering at NIBM,
-              I'm always expanding my skills and looking for opportunities to contribute to
-              innovative software solutions.
-            </p>
+                I'm a Software Engineering undergraduate based in Kurunegala, Sri Lanka,
+                passionate about building modern, scalable, and user-centered digital
+                solutions. With hands-on experience in full-stack web and mobile
+                application development, I enjoy transforming ideas into responsive,
+                high-performance, and real-world software applications.
+              </p>
+
+              <p className="about__para">
+                My technical expertise includes developing interactive user interfaces with{" "}
+                <strong>React.js</strong>, building cross-platform mobile applications using{" "}
+                <strong>Flutter</strong>, and creating backend systems with{" "}
+                <strong>Spring Boot</strong>, <strong>Flask</strong>, <strong>PHP</strong>,{" "}
+                and REST APIs. I also work with databases and cloud technologies including{" "}
+                <strong>MySQL</strong>, <strong>Oracle Database</strong>,{" "}
+                <strong>MongoDB</strong>, and <strong>Firebase</strong>.
+              </p>
+
+              <p className="about__para">
+                Currently pursuing my Higher National Diploma in Software Engineering at
+                NIBM, I continuously expand my skills through academic and personal
+                projects focused on full-stack development, mobile applications, database
+                systems, and modern software engineering practices. I'm always eager to
+                contribute to innovative and impactful software solutions.
+              </p>
 
             {/* Contact info grid */}
             <Row className="about__info-grid g-3 mt-2">

@@ -32,11 +32,13 @@ function Hero() {
       <div className="hero__orb hero__orb--3" ref={orb3Ref} />
       <div className="hero__grid" />
 
-      <Container className="hero__container">
-        <Row className="align-items-end gy-5">
+      <Container className="hero__container h-100">
+        {/* stretch so columns fill hero height → image can anchor to bottom */}
+        <Row className="align-items-stretch h-100 gy-5">
 
           {/* LEFT — Text content */}
           <Col lg={6} className="hero__content">
+            {/* Compact pill badge */}
             <div className="hero__avail-badge">
               <span className="hero__avail-dot" />
               Available for work
@@ -50,11 +52,6 @@ function Hero() {
 
             <p className="hero__role">
               <span className="hero__role-hl">Full-Stack</span> Software Engineer
-            </p>
-
-            <p className="hero__desc">
-              Software Engineering student passionate about UI/UX design and frontend
-              development, with experience in full-stack web and mobile applications.
             </p>
 
             <div className="hero__actions">
@@ -73,7 +70,7 @@ function Hero() {
             </div>
 
             <div className="hero__socials">
-              <a href="https://linkedin.com/in/matheesha-amarathunga" target="_blank" rel="noopener noreferrer" className="hero__social" aria-label="LinkedIn">
+              <a href="https://linkedin.com/in/matheesha-amarathunga-87221a373" target="_blank" rel="noopener noreferrer" className="hero__social" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
                   <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
                   <circle cx="4" cy="4" r="2"/>
@@ -103,33 +100,23 @@ function Hero() {
             </div>
           </Col>
 
-          {/* RIGHT — Photo */}
-          <Col lg={6} className="hero__visual d-flex justify-content-center">
+          {/* RIGHT — Photo, bottom-anchored */}
+          <Col lg={6} className="hero__visual justify-content-center">
             <div className="hero__img-wrapper">
-
-              {/* Red glow floor */}
               <div className="hero__glow-disc" />
-
-              {/* Spinning orbit rings */}
               <div className="hero__ring hero__ring--outer" />
               <div className="hero__ring hero__ring--inner" />
-
-              {/* Circle glow backdrop — sits behind the photo */}
               <div className="hero__circle-backdrop" />
-
-              {/* Profile photo — no clip, transparent bg shows freely */}
               <img
                 src={profileImg}
                 alt="Matheesha Amarathunga"
                 className="hero__img"
               />
-
-              {/* Floating liquid-glass tech chips */}
               <span className="hero__chip hero__chip--1">⚛️ React</span>
               <span className="hero__chip hero__chip--2">🐦 Flutter</span>
               <span className="hero__chip hero__chip--3">🐍 Python</span>
               <span className="hero__chip hero__chip--4">🎯 Dart</span>
-              <span className="hero__chip hero__chip--5">🌐 HTML/CSS</span>
+              <span className="hero__chip hero__chip--5">🔧 Git</span>
               <span className="hero__chip hero__chip--6">☕ Java</span>
             </div>
           </Col>

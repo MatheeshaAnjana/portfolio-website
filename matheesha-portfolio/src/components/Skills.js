@@ -14,11 +14,11 @@ const SKILL_CATEGORIES = [
   },
   {
     icon: '📱', category: 'Mobile',
-    skills: ['Flutter', 'Dart', 'Firebase Integration', 'Android Studio'],
+    skills: ['Flutter', 'Dart', 'Firebase Integration', 'Android Studio','Kotlin', 'React Native'],
   },
   {
     icon: '🗄️', category: 'Database',
-    skills: ['MySQL', 'Firebase Realtime DB', 'Database Design', 'Normalization'],
+    skills: ['MySQL', 'Firebase Realtime DB', 'Database Design', 'Oracle', 'MongoDB', 'sqlite'],
   },
   {
     icon: '💻', category: 'Languages',
@@ -26,7 +26,7 @@ const SKILL_CATEGORIES = [
   },
   {
     icon: '🛠️', category: 'Tools & SE',
-    skills: ['Git', 'GitHub', 'VS Code', 'XAMPP', 'OOP', 'UI/UX Principles'],
+    skills: ['Git', 'GitHub', 'VS Code', 'Intellij', "Postman", 'XAMPP', 'OOP', 'UI/UX Principles'],
   },
 ];
 
