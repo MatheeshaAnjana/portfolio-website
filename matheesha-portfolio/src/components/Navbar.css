@@ -2,7 +2,7 @@
    NAVBAR.CSS  –  Floating Dynamic Island Style
    ═══════════════════════════════════════════════ */
 
-/* ── Outer wrapper — positions the island inside the hero ── */
+/* ── Outer wrapper ── */
 .di-nav-wrapper {
   position: fixed;
   top: 18px;
@@ -13,7 +13,7 @@
   max-width: 1060px;
   display: flex;
   justify-content: center;
-  pointer-events: none;   /* clicks pass through wrapper gaps */
+  pointer-events: none;
 }
 
 /* ── The floating island pill ── */
@@ -25,10 +25,9 @@
   padding: 7px 10px 7px 14px;
   border-radius: 9999px;
   width: 100%;
-  overflow: hidden;        /* prevent any child from bursting the pill */
+  overflow: hidden;
   min-height: 0;
 
-  /* Apple liquid-glass */
   background:
     linear-gradient(135deg,
       rgba(255,255,255,0.10) 0%,
@@ -59,7 +58,6 @@
     0 2px 6px  rgba(0,0,0,0.08);
 }
 
-/* Scrolled — slightly more opaque */
 .di-nav--scrolled {
   background:
     linear-gradient(135deg,
@@ -78,14 +76,12 @@
       rgba(245,245,245,0.80) 100%);
 }
 
-/* Logo M letter — white in dark, dark in light */
 .logo-m { fill: white; }
 [data-theme="light"] .logo-m { fill: #111111; }
 
-/* ── Logo icon (legacy - replaced by SVG LogoMark) ── */
 .di-logo-icon { display: none; }
 
-/* ── Brand link — wraps the SVG LogoMark ── */
+/* ── Brand link ── */
 .di-brand {
   display: inline-flex;
   align-items: center;
@@ -95,7 +91,7 @@
   transition: opacity 0.2s ease;
 }
 .di-brand:hover { opacity: 0.85; }
-.di-brand__bracket { display: none; } /* legacy, not used */
+.di-brand__bracket { display: none; }
 
 /* ── Nav links ── */
 .di-links {
@@ -104,7 +100,7 @@
   gap: 0;
   align-items: center;
   margin: 0; padding: 0;
-  flex-shrink: 1;          /* allow links to shrink before wrapping */
+  flex-shrink: 1;
 }
 
 .di-links li {
@@ -122,7 +118,7 @@
   border-radius: 9999px;
   transition: color 0.2s ease, background 0.2s ease;
   white-space: nowrap;
-  line-height: 1;          /* prevent line-height inflating height */
+  line-height: 1;
   display: inline-flex;
   align-items: center;
 }
@@ -134,16 +130,11 @@
   background: rgba(0,0,0,0.05);
 }
 
-/* Active — solid background pill, NO border (avoids height shift), NO ::after */
 .di-link--active {
   color: var(--text-primary) !important;
   font-weight: 600;
   background: rgba(255,255,255,0.11);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
   position: relative;
-}
-/* Tiny red bottom underline — stays INSIDE the link via box-shadow, no layout shift */
-.di-link--active {
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.14),
     inset 0 -2px 0 var(--accent);
@@ -162,7 +153,6 @@
   flex-shrink: 0;
 }
 
-/* Theme toggle — glass pill button */
 .di-theme-toggle {
   display: flex;
   align-items: center;
@@ -236,7 +226,7 @@
 .di-hamburger--open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .di-hamburger--open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-/* ── Mobile dropdown — also glass ── */
+/* ── Mobile dropdown ── */
 .di-mobile-menu {
   display: none;
   position: fixed;
@@ -307,15 +297,23 @@
   z-index: 998;
 }
 
-/* ── Responsive ── */
+/* ── Responsive breakpoints ── */
 @media (max-width: 1020px) {
   .di-links { display: none; }
   .di-hamburger { display: flex; }
   .di-mobile-menu { display: block; }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 575px) {
   .di-nav-wrapper { width: calc(100% - 24px); top: 12px; }
-  .di-nav { padding: 7px 10px 7px 12px; }
+  .di-nav { padding: 7px 10px 7px 12px; gap: 6px; }
   .di-theme-toggle .di-theme-label { display: none; }
+  .di-theme-toggle { padding: 5px 10px; }
+  .di-cta { padding: 7px 14px; font-size: 0.7rem; letter-spacing: 0.04em; }
+  .di-mobile-menu { width: calc(100% - 24px); top: 64px; }
+}
+
+@media (max-width: 380px) {
+  .di-cta { padding: 6px 11px; font-size: 0.68rem; }
+  .di-theme-toggle { padding: 5px 8px; }
 }

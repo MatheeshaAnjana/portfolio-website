@@ -135,3 +135,22 @@ section {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+/* ══════════════════════════════════
+   GLOBAL MOBILE RESPONSIVE FIXES
+   ══════════════════════════════════ */
+@media (max-width: 991px) {
+  section { padding: 70px 0; }
+  .section-subtitle { margin-bottom: 36px; }
+}
+
+@media (max-width: 575px) {
+  section { padding: 56px 0; }
+  .section-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
+  .section-subtitle { font-size: 0.92rem; margin-bottom: 28px; }
+  /* Tighter container padding on small phones */
+  .container { padding-left: 18px; padding-right: 18px; }
+}
+
+@media (max-width: 420px) {
+  section { padding: 44px 0; }
+}

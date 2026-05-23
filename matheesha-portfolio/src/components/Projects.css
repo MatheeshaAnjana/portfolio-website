@@ -4,21 +4,22 @@
 
 .projects { background: var(--bg-secondary); }
 
-/* ── Filter Buttons ── */
+/* ── Filter Buttons wrapper ── */
 .projects__filters {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   background: transparent;
   border: none;
   padding: 0;
-  flex-wrap: wrap;
+  flex-wrap: wrap;           /* allow wrapping when needed */
+  width: 100%;
 }
 
 .projects__filter-btn {
   font-family: 'DM Sans', sans-serif !important;
   font-size: 0.8rem !important;
   font-weight: 500 !important;
-  padding: 7px 20px !important;
+  padding: 8px 18px !important;
   border-radius: var(--radius-sm) !important;
   border: 1px solid var(--border-glass) !important;
   background: var(--bg-glass) !important;
@@ -30,6 +31,8 @@
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
+  white-space: nowrap;
+  flex: 0 0 auto;            /* don't grow/shrink oddly */
 }
 .projects__filter-btn:hover {
   color: var(--text-primary) !important;
@@ -188,4 +191,41 @@
   color: #fff;
   border-color: var(--accent);
   box-shadow: 0 0 18px rgba(220,38,38,0.35);
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════ */
+
+/* On mobile make filter buttons fit in 2 × 2 grid */
+@media (max-width: 575px) {
+  .projects__filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .projects__filter-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 10px 12px !important;
+    font-size: 0.82rem !important;
+  }
+
+  /* Full-width cards on small screens */
+  .project-card:hover { transform: none; } /* disable lift on touch */
+}
+
+@media (max-width: 420px) {
+  .projects__filters {
+    grid-template-columns: 1fr 1fr;
+  }
+  .projects__filter-btn {
+    padding: 9px 8px !important;
+    font-size: 0.78rem !important;
+  }
+  .project-card__link {
+    padding: 7px 12px;
+    font-size: 0.75rem;
+  }
 }

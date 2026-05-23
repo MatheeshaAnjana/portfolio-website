@@ -78,7 +78,7 @@
   justify-content: center;
 }
 
-/* ── Available badge — compact pill (not full width) ── */
+/* ── Available badge ── */
 .hero__avail-badge {
   display: inline-flex;
   align-self: flex-start;
@@ -455,6 +455,7 @@
   transform: scale(1.04);
 }
 
+/* Desktop chip positions */
 .hero__chip--1 { top:  100px;    right: -10px;  animation-delay: 0.0s; }
 .hero__chip--2 { top:  110px;   left:  -65px;  animation-delay: 1.2s; }
 .hero__chip--3 { top:  46%;     right: -60px;  animation-delay: 2.5s; }
@@ -518,29 +519,89 @@
   .hero__ring--inner { width: 340px; height: 340px; }
 }
 
+/* ── Tablet / stacked layout ── */
 @media (max-width: 991px) {
-  .hero { text-align: center; padding-top: 6rem; max-height: none; min-height: 100vh; }
-  .hero__visual { order: -1; align-self: auto; height: 380px; min-height: 0; }
+  .hero {
+    text-align: center;
+    padding-top: 6rem;
+    max-height: none;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+  .hero__visual {
+    order: -1;
+    align-self: auto;
+    height: 420px;
+    min-height: 0;
+    justify-content: center !important;
+  }
   .hero__content { padding-bottom: 2rem; }
-  .hero__img-wrapper { width: 320px; min-height: 0; height: 100%; }
-  .hero__img { max-height: 400px; }
-  .hero__circle-backdrop { width: 280px; height: 280px; }
-  .hero__ring--outer { width: 330px; height: 330px; }
-  .hero__ring--inner { width: 260px; height: 260px; }
-  .hero__glow-disc { width: 260px; }
+  .hero__img-wrapper {
+    width: 340px;
+    min-height: 0;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .hero__img { max-height: 440px; }
+  .hero__circle-backdrop { width: 300px; height: 300px; }
+  .hero__ring--outer { width: 360px; height: 360px; }
+  .hero__ring--inner { width: 285px; height: 285px; }
+  .hero__glow-disc { width: 280px; }
   .hero__avail-badge { align-self: center; }
   .hero__actions, .hero__socials { justify-content: center; }
-  .hero__chip--2, .hero__chip--4 { left: -4px; }
-  .hero__chip--3, .hero__chip--5 { right: -4px; }
+
+  /* Chip repositioning for tablet — keep inside wrapper bounds */
+  .hero__chip--1 { top: 60px;    right: 0px; }
+  .hero__chip--2 { top: 60px;    left: 0px; }
+  .hero__chip--3 { top: 44%;     right: 0px; }
+  .hero__chip--4 { bottom: 190px; left: 0px; }
+  .hero__chip--5 { bottom: 80px;  right: 0px; }
   .hero__chip--6 { display: none; }
 }
 
-@media (max-width: 480px) {
-  .hero__visual { height: 300px; }
-  .hero__img-wrapper { width: 260px; }
-  .hero__img { max-height: 320px; }
-  .hero__circle-backdrop { width: 220px; height: 220px; }
-  .hero__ring--outer { width: 268px; height: 268px; }
-  .hero__ring--inner { width: 210px; height: 210px; }
-  .hero__chip--1, .hero__chip--4 { display: none; }
+/* ── Large phone (480–575px) ── */
+@media (max-width: 575px) {
+  .hero { padding-top: 5.5rem; }
+  .hero__visual { height: 370px; }
+  .hero__img-wrapper {
+    width: 300px;
+    margin: 0 auto;
+  }
+  .hero__img { max-height: 390px; }
+  .hero__circle-backdrop { width: 260px; height: 260px; }
+  .hero__ring--outer { width: 310px; height: 310px; }
+  .hero__ring--inner { width: 245px; height: 245px; }
+  .hero__glow-disc { width: 230px; }
+
+  .hero__chip { font-size: 0.67rem; padding: 5px 11px; }
+  .hero__chip--1 { top: 50px;    right: 4px; }
+  .hero__chip--2 { top: 50px;    left: 4px; }
+  .hero__chip--3 { top: 42%;     right: 4px; }
+  .hero__chip--4 { bottom: 160px; left: 4px; }
+  .hero__chip--5 { bottom: 65px;  right: 4px; }
+  .hero__chip--6 { display: none; }
+
+  .hero__name { font-size: clamp(2.1rem, 9vw, 2.8rem); }
+  .hero__name--sub { font-size: clamp(1.5rem, 6.5vw, 2rem); }
+  .hero__btn-primary,
+  .hero__btn-secondary { width: 100%; justify-content: center; }
+  .hero__actions { flex-direction: column; align-items: center; }
+}
+
+/* ── Small phone (≤ 420px) ── */
+@media (max-width: 420px) {
+  .hero__visual { height: 310px; }
+  .hero__img-wrapper { width: 250px; }
+  .hero__img { max-height: 330px; }
+  .hero__circle-backdrop { width: 215px; height: 215px; }
+  .hero__ring--outer { width: 260px; height: 260px; }
+  .hero__ring--inner { width: 205px; height: 205px; }
+  .hero__glow-disc { width: 190px; }
+
+  /* Hide more chips on very small screens */
+  .hero__chip--1 { display: none; }
+  .hero__chip--4 { display: none; }
+  .hero__chip--2 { top: 30px; left: 2px; }
+  .hero__chip--3 { top: 40%; right: 2px; }
+  .hero__chip--5 { bottom: 50px; right: 2px; }
 }
