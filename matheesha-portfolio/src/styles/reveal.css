@@ -1,0 +1,76 @@
+/* ═══════════════════════════════════════════════
+   REVEAL.CSS — shared scroll-in animation system
+   ═══════════════════════════════════════════════ */
+
+/* Base reveal: fade + rise */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade + scale variant (used for Projects carousel) */
+.reveal-scale {
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Staggered children inside a grid — set --delay inline per item */
+.reveal-stagger {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal-stagger.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section title animated underline accent */
+.section-title--underline {
+  position: relative;
+  display: inline-block;
+}
+.section-title--underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent, #dc2626), transparent);
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+.reveal.is-visible .section-title--underline::after,
+.is-visible .section-title--underline::after {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-scale, .reveal-stagger {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .section-title--underline::after {
+    transition: none !important;
+    width: 100% !important;
+  }
+}

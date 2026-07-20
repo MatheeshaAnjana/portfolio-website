@@ -8,6 +8,8 @@ import Certifications from './components/Certifications';
 import Contact        from './components/Contact';
 import Footer         from './components/Footer';
 import Welcome        from './components/Welcome';
+import ScrollProgress from './components/ScrollProgress';
+import './styles/reveal.css';
 import './App.css';
 
 function App() {
@@ -35,6 +37,7 @@ function App() {
 
   return (
     <>
+      <ScrollProgress />
       <Navbar scrolled={scrolled} theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Hero />
