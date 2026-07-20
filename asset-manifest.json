@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/portfolio-website/static/css/main.0bf91778.css",
-    "main.js": "/portfolio-website/static/js/main.7bf15a6d.js",
+    "main.css": "/portfolio-website/static/css/main.b18c9813.css",
+    "main.js": "/portfolio-website/static/js/main.2f45d7d0.js",
+    "static/media/thetumeric-web.jpg": "/portfolio-website/static/media/thetumeric-web.42b24253182bff5589d1.jpg",
+    "static/media/assistive-robot.jpg": "/portfolio-website/static/media/assistive-robot.500efef8ed8ec5e90bc0.jpg",
+    "static/media/portfolio.jpg": "/portfolio-website/static/media/portfolio.7257ef8e1a3de36b1df6.jpg",
+    "static/media/thetumeric-mobile.jpg": "/portfolio-website/static/media/thetumeric-mobile.489a6642f67bd886a162.jpg",
+    "static/media/pet-shop.jpg": "/portfolio-website/static/media/pet-shop.27d798da285628fd6668.jpg",
     "static/media/profile.png": "/portfolio-website/static/media/profile.199544ca3bb0fc9b5f05.png",
+    "static/media/smart-queue.jpg": "/portfolio-website/static/media/smart-queue.7754f1832d542345cd13.jpg",
+    "static/media/smart-gadget.jpg": "/portfolio-website/static/media/smart-gadget.6c704ad53cb21134de2d.jpg",
     "static/media/Matheesha_Amarathunga_CV.pdf": "/portfolio-website/static/media/Matheesha_Amarathunga_CV.4424e460ab4305928f3b.pdf",
     "index.html": "/portfolio-website/index.html",
-    "main.0bf91778.css.map": "/portfolio-website/static/css/main.0bf91778.css.map",
-    "main.7bf15a6d.js.map": "/portfolio-website/static/js/main.7bf15a6d.js.map"
+    "main.b18c9813.css.map": "/portfolio-website/static/css/main.b18c9813.css.map",
+    "main.2f45d7d0.js.map": "/portfolio-website/static/js/main.2f45d7d0.js.map"
   },
   "entrypoints": [
-    "static/css/main.0bf91778.css",
-    "static/js/main.7bf15a6d.js"
+    "static/css/main.b18c9813.css",
+    "static/js/main.2f45d7d0.js"
   ]
 }
