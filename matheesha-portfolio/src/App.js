@@ -7,11 +7,15 @@ import Projects       from './components/Projects';
 import Certifications from './components/Certifications';
 import Contact        from './components/Contact';
 import Footer         from './components/Footer';
+import Welcome        from './components/Welcome';
 import './App.css';
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme]       = useState('dark');
+  const [showIntro, setShowIntro] = useState(
+    () => sessionStorage.getItem('introSeen') !== '1'
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -24,6 +28,10 @@ function App() {
   }, []);
 
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+
+  if (showIntro) {
+    return <Welcome onFinish={() => setShowIntro(false)} />;
+  }
 
   return (
     <>
