@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Container, ButtonGroup, Button } from 'react-bootstrap';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './Projects.css';
 
 // Project images — add matching files to src/assets/projects/
@@ -116,6 +117,8 @@ function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
   const scrollRef  = useRef(null);
   const dragState  = useRef({ isDown: false, startX: 0, startScroll: 0, moved: false });
+  const [headerRef, headerVisible] = useScrollReveal();
+  const [carouselRef, carouselVisible] = useScrollReveal({ threshold: 0.1 });
 
   const visible = activeFilter === 'All'
     ? PROJECTS
@@ -172,11 +175,13 @@ function Projects() {
   return (
     <section id="projects" className="projects section-border-top" style={{ background: 'var(--bg-secondary)' }}>
       <Container>
-        <p className="section-label">What I've Built</p>
-        <h2 className="section-title">Projects</h2>
-        <p className="section-subtitle">
-          Real-world applications built with modern technologies, from mobile apps to full-stack web systems.
-        </p>
+        <div ref={headerRef} className={`reveal ${headerVisible ? 'is-visible' : ''}`}>
+          <p className="section-label">What I've Built</p>
+          <h2 className="section-title section-title--underline">Projects</h2>
+          <p className="section-subtitle">
+            Real-world applications built with modern technologies, from mobile apps to full-stack web systems.
+          </p>
+        </div>
 
         <ButtonGroup className="projects__filters mb-4">
           {FILTERS.map((f) => (
@@ -195,7 +200,7 @@ function Projects() {
 
       <div
         className="projects__scroll"
-        ref={scrollRef}
+        ref={(node) => { scrollRef.current = node; carouselRef.current = node; }}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={endDrag}
@@ -205,8 +210,9 @@ function Projects() {
       >
         {visible.map((project, i) => (
           <div
-            className={`project-card ${project.type === 'Robotics' ? 'project-card--robotics' : ''}`}
+            className={`project-card project-card--slide-in ${project.type === 'Robotics' ? 'project-card--robotics' : ''} ${carouselVisible ? 'is-visible' : ''}`}
             key={`${project.title}-${i}`}
+            style={{ '--delay': `${i * 0.09}s` }}
           >
             <div className="project-card__image-wrap">
               <img src={project.image} alt={project.title} className="project-card__image" draggable="false" />
