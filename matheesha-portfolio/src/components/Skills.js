@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './Skills.css';
 
-// Each category contains a list of skills with icon + proficiency level
 const SKILL_CATEGORIES = [
   {
     category: 'Frontend',
@@ -77,39 +77,46 @@ const SKILL_CATEGORIES = [
 
 function Skills() {
   const [activeFilter, setActiveFilter] = useState(SKILL_CATEGORIES[0].category);
+  const [headerRef, headerVisible]   = useScrollReveal();
+  const [filtersRef, filtersVisible] = useScrollReveal();
+  // Tracks the grid itself — bars only fill once this is scrolled into view
+  const [gridRef, gridVisible]       = useScrollReveal({ threshold: 0.2 });
 
   const activeCategory = SKILL_CATEGORIES.find((c) => c.category === activeFilter);
 
   return (
     <section id="skills" className="skills section-border-top" style={{ background: 'var(--bg-primary)' }}>
       <Container>
-        <p className="section-label">What I Know</p>
-        <h2 className="section-title">Technical Skills</h2>
-        <p className="section-subtitle">
-          A well-rounded toolkit for building full-stack web and mobile applications from the ground up.
-        </p>
+        <div ref={headerRef} className={`reveal ${headerVisible ? 'is-visible' : ''}`}>
+          <p className="section-label">What I Know</p>
+          <h2 className="section-title section-title--underline">Technical Skills</h2>
+          <p className="section-subtitle">
+            A well-rounded toolkit for building full-stack web and mobile applications from the ground up.
+          </p>
+        </div>
 
-        {/* Category filter tabs */}
-        <ButtonGroup className="skills__filters mb-4">
-          {SKILL_CATEGORIES.map((cat) => (
-            <Button
-              key={cat.category}
-              variant={activeFilter === cat.category ? 'primary' : 'outline-secondary'}
-              className={`skills__filter-btn ${activeFilter === cat.category ? 'skills__filter-btn--active' : ''}`}
-              onClick={() => setActiveFilter(cat.category)}
-            >
-              {cat.category}
-            </Button>
-          ))}
-        </ButtonGroup>
+        <div ref={filtersRef} className={`reveal ${filtersVisible ? 'is-visible' : ''}`}>
+          <ButtonGroup className="skills__filters mb-4">
+            {SKILL_CATEGORIES.map((cat) => (
+              <Button
+                key={cat.category}
+                variant={activeFilter === cat.category ? 'primary' : 'outline-secondary'}
+                className={`skills__filter-btn ${activeFilter === cat.category ? 'skills__filter-btn--active' : ''}`}
+                onClick={() => setActiveFilter(cat.category)}
+              >
+                {cat.category}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </div>
 
-        {/* Skill cards grid */}
-        <Row className="g-4">
+        {/* key={activeFilter} forces remount so bars reset to 0% on filter change too */}
+        <Row ref={gridRef} className="g-4" key={activeFilter}>
           {activeCategory.skills.map((skill, i) => (
             <Col key={skill.name} lg={3} md={4} sm={6}>
               <div
-                className="skills__skill-card"
-                style={{ animationDelay: `${i * 0.06}s` }}
+                className={`skills__skill-card skills__skill-card--animate ${gridVisible ? 'is-visible' : ''}`}
+                style={{ '--delay': `${i * 0.06}s` }}
               >
                 <div className="skills__skill-top">
                   <span className="skills__skill-icon">{skill.icon}</span>
@@ -121,7 +128,10 @@ function Skills() {
                 <div className="skills__bar-track">
                   <div
                     className="skills__bar-fill"
-                    style={{ width: `${skill.level}%`, animationDelay: `${i * 0.06 + 0.1}s` }}
+                    style={{
+                      width: gridVisible ? `${skill.level}%` : '0%',
+                      transitionDelay: `${i * 0.06 + 0.15}s`,
+                    }}
                   />
                 </div>
               </div>

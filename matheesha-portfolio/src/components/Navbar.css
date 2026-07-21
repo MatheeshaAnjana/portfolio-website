@@ -33,8 +33,8 @@
       rgba(255,255,255,0.10) 0%,
       rgba(255,255,255,0.04) 50%,
       rgba(255,255,255,0.07) 100%);
-  backdrop-filter: blur(2px) saturate(1.8) brightness(0.95);
   -webkit-backdrop-filter: blur(2px) saturate(1.8) brightness(0.95);
+  backdrop-filter: blur(2px) saturate(1.8) brightness(0.95);
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow:
     inset 0 1.5px 0 rgba(255,255,255,0.18),
@@ -166,6 +166,7 @@
   font-family: 'DM Sans', sans-serif;
   cursor: pointer;
   transition: all 0.2s ease;
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   white-space: nowrap;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
@@ -239,8 +240,8 @@
     linear-gradient(135deg,
       rgba(10,10,10,0.90) 0%,
       rgba(6,6,6,0.85) 100%);
-  backdrop-filter: blur(28px) saturate(1.6);
   -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  backdrop-filter: blur(28px) saturate(1.6);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 24px;
   padding: 20px 24px;
@@ -293,6 +294,7 @@
 .di-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.4);
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   z-index: 998;
 }

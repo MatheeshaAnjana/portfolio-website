@@ -2,15 +2,23 @@
    HERO.CSS  –  Black × Red × Apple Liquid Glass
    ═══════════════════════════════════════════════ */
 
+/* ── Sticky pin wrapper: gives scroll room for the
+   "About slides up over Hero" glass-card effect ── */
+.hero-stick-wrap {
+  position: relative;
+  height: 160vh;
+}
+
 .hero {
-  min-height: calc(100vh - 72px);
-  max-height: calc(100vh - 7px);
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   align-items: center;
-  position: relative;
   overflow: hidden;
   padding: 4rem 0 0;
   background: var(--bg-primary);
+  z-index: 1;
 }
 
 /* ── Light mode orbs & grid ── */
@@ -158,6 +166,23 @@
   font-weight: 300;
 }
 .hero__role-hl { color: var(--text-primary); font-weight: 600; }
+
+/* ── Terminal-style accents ── */
+.hero__prompt {
+  font-family: 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--accent-bright);
+  font-weight: 700;
+  margin-right: 4px;
+}
+.hero__cursor {
+  display: inline-block;
+  width: 9px;
+  height: 1.05em;
+  background: var(--accent);
+  margin-left: 8px;
+  vertical-align: -3px;
+  animation: heroCursorBlink 1s steps(1) infinite;
+}
 
 /* ── Buttons ── */
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.6rem; }
@@ -507,6 +532,10 @@
 @keyframes heroSpinReverse {
   to { transform: translateX(-50%) rotate(-360deg); }
 }
+@keyframes heroCursorBlink {
+  0%, 50%  { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
 
 /* ══════════════════════════════════
    RESPONSIVE
@@ -521,10 +550,14 @@
 
 /* ── Tablet / stacked layout ── */
 @media (max-width: 991px) {
+  /* Disable sticky-pin behavior on tablet/mobile — feels janky
+     on shorter viewports and the stacked layout doesn't need it */
+  .hero-stick-wrap { height: auto; }
   .hero {
+    position: static;
+    height: auto;
     text-align: center;
     padding-top: 6rem;
-    max-height: none;
     min-height: 100vh;
     padding-bottom: 3rem;
   }
@@ -550,7 +583,6 @@
   .hero__avail-badge { align-self: center; }
   .hero__actions, .hero__socials { justify-content: center; }
 
-  /* Chip repositioning for tablet — keep inside wrapper bounds */
   .hero__chip--1 { top: 60px;    right: 0px; }
   .hero__chip--2 { top: 60px;    left: 0px; }
   .hero__chip--3 { top: 44%;     right: 0px; }
@@ -598,7 +630,6 @@
   .hero__ring--inner { width: 205px; height: 205px; }
   .hero__glow-disc { width: 190px; }
 
-  /* Hide more chips on very small screens */
   .hero__chip--1 { display: none; }
   .hero__chip--4 { display: none; }
   .hero__chip--2 { top: 30px; left: 2px; }

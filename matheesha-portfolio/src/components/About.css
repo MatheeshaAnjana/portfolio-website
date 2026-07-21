@@ -2,7 +2,66 @@
    ABOUT.CSS
    ═══════════════════════════════════════════════ */
 
-.about { background: var(--bg-secondary); }
+/* ── Glass card that slides up over the pinned Hero ── */
+.about-glass-card {
+  position: relative;
+  z-index: 2;
+  border-radius: 32px 32px 0 0;
+  overflow: hidden;
+  transform: translateY(70px);
+  background: rgba(10, 10, 10, 0.55);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow: 0 -20px 60px rgba(220,38,38,0.12);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.9s ease;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+.about-glass-card.is-visible {
+  transform: translateY(0);
+  background: var(--bg-secondary);
+}
+[data-theme="light"] .about-glass-card {
+  background: rgba(255, 255, 255, 0.55);
+}
+[data-theme="light"] .about-glass-card.is-visible {
+  background: var(--bg-secondary);
+}
+
+/* Glowing top edge — the "glass tab" leading edge */
+.about-glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(220,38,38,0.7), transparent);
+  box-shadow: 0 0 20px rgba(220,38,38,0.5);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-glass-card {
+    transition: none !important;
+    transform: none !important;
+    background: var(--bg-secondary) !important;
+  }
+}
+
+@media (max-width: 991px) {
+  /* Flatten the card effect on tablet/mobile since Hero isn't sticky there */
+  .about-glass-card {
+    border-radius: 0;
+    transform: none !important;
+    background: var(--bg-secondary) !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .about-glass-card::before { display: none; }
+}
 
 /* Biography text */
 .about__para {
@@ -44,8 +103,8 @@
   background: var(--bg-glass) !important;
   border: 1px solid var(--border-glass) !important;
   border-radius: var(--radius-md) !important;
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   transition: all 0.28s ease;
   overflow: hidden;
 }
@@ -81,8 +140,8 @@
   background: var(--bg-glass) !important;
   border: 1px solid var(--border-glass) !important;
   border-radius: var(--radius-md) !important;
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   overflow: hidden;
 }
 .about__edu-card::before {
@@ -169,9 +228,8 @@
   color: var(--text-muted);
   margin: 0;
 }
+
 /* ── Scroll reveal compatibility ── */
-/* Ensures the timeline connector line still renders correctly
-   even though timeline items now animate in individually */
 .about__timeline-item.reveal-stagger {
   transform: translateY(22px);
 }

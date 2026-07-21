@@ -17,11 +17,14 @@ function App() {
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme]       = useState('dark');
 
-  // stage: 'intro' -> 'transitioning' -> 'main'
+  // Intro stage: 'intro' -> 'transitioning' -> 'main'
   const [stage, setStage] = useState(
     () => (sessionStorage.getItem('introSeen') === '1' ? 'main' : 'intro')
   );
   const [showWelcome, setShowWelcome] = useState(stage === 'intro');
+
+  // Nav-triggered glass transition (independent of the intro one)
+  const [navTarget, setNavTarget] = useState(null); // href string or null
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -35,11 +38,20 @@ function App() {
 
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
+  const handleNavigate = (href) => {
+    if (navTarget) return; // ignore clicks while a transition is already running
+    setNavTarget(href);
+  };
+
   return (
     <>
-      {/* Main site is always mounted underneath — Welcome/PageTransition sit on top of it */}
       <ScrollProgress />
-      <Navbar scrolled={scrolled} theme={theme} toggleTheme={toggleTheme} />
+      <Navbar
+        scrolled={scrolled}
+        theme={theme}
+        toggleTheme={toggleTheme}
+        onNavigate={handleNavigate}
+      />
       <main>
         <Hero />
         <About />
@@ -58,6 +70,15 @@ function App() {
         <PageTransition
           onCovered={() => setShowWelcome(false)}
           onComplete={() => setStage('main')}
+        />
+      )}
+
+      {navTarget && (
+        <PageTransition
+          onCovered={() => {
+            document.querySelector(navTarget)?.scrollIntoView({ behavior: 'auto', block: 'start' });
+          }}
+          onComplete={() => setNavTarget(null)}
         />
       )}
     </>
