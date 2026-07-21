@@ -169,3 +169,12 @@
   color: var(--text-muted);
   margin: 0;
 }
+/* ── Scroll reveal compatibility ── */
+/* Ensures the timeline connector line still renders correctly
+   even though timeline items now animate in individually */
+.about__timeline-item.reveal-stagger {
+  transform: translateY(22px);
+}
+.about__timeline-item.reveal-stagger.is-visible {
+  transform: translateY(0);
+}

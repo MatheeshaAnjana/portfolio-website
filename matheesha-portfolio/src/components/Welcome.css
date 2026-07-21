@@ -11,8 +11,10 @@
 }
 
 .welcome--exit {
-  animation: welcomeFadeOut 0.6s ease forwards;
   pointer-events: none;
+  /* No fade here — the glass panel (PageTransition) covers this
+     screen instead, so we keep the terminal frozen and crisp
+     underneath it until it's fully hidden. */
 }
 
 @keyframes welcomeFadeIn {

@@ -1,0 +1,45 @@
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  background: rgba(6, 6, 6, 0.55);
+  backdrop-filter: blur(0px) saturate(1);
+  -webkit-backdrop-filter: blur(0px) saturate(1);
+  transform: translateY(100%);
+}
+
+/* Slides up to fully cover + blur whatever's behind it */
+.page-transition--cover {
+  transform: translateY(0%);
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+              backdrop-filter 0.5s ease;
+}
+
+/* Slides further up and off-screen, un-blurring as it goes,
+   revealing the new content underneath */
+.page-transition--reveal {
+  transform: translateY(-100%);
+  backdrop-filter: blur(0px) saturate(1);
+  -webkit-backdrop-filter: blur(0px) saturate(1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              backdrop-filter 0.45s ease;
+}
+
+/* Glowing red edge — the "tab" accent, like a light catching the glass */
+.page-transition::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(220,38,38,0.85), transparent);
+  box-shadow: 0 0 24px rgba(220,38,38,0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    display: none;
+  }
+}

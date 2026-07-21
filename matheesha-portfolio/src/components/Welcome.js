@@ -25,7 +25,7 @@ function Welcome({ onFinish }) {
     if (exiting) return;
     setExiting(true);
     sessionStorage.setItem('introSeen', '1');
-    setTimeout(onFinish, 600); // matches CSS fade-out duration
+    onFinish(); // glass panel (PageTransition) now handles the visual exit
   };
 
   useEffect(() => {
