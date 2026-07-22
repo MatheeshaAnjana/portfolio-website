@@ -41,7 +41,7 @@ const CERTS = [
     description: 'Foundational graphic design skills including visual communication and design tools.',
   },
   {
-    title:       'Listening and Speech',
+    title:       'English Language Course',
     issuer:      'The Open University',
     icon:        '🎓',
     color:       '#00d4aa',
