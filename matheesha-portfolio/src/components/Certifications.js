@@ -1,16 +1,24 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './Certifications.css';
 
 const CERTS = [
-    {
+  {
+    title:       'Foundations of Cybersecurity',
+    issuer:      'Google via Coursera',
+    icon:        '🛡️',
+    color:       '#ea4335',
+    description: 'Covers core cybersecurity concepts including threat detection, security frameworks, and risk mitigation as part of the Google Cybersecurity Certificate.',
+    verify:      'https://coursera.org/verify/BUVET2G24BK6',
+  },
+  {
     title:       'Google Network Security Specialization',
     issuer:      'Google via Coursera',
     icon:        '🔐',
     color:       '#34a853',
     description: 'Covers network security, intrusion detection, hardening, and incident response with tools like Wireshark and Suricata.',
   },
-
   {
     title:       'Meta Front-End Developer',
     issuer:      'Meta',
@@ -42,18 +50,28 @@ const CERTS = [
 ];
 
 function Certifications() {
+  const [headerRef, headerVisible] = useScrollReveal();
+  const [gridRef, gridVisible]     = useScrollReveal({ threshold: 0.1 });
+
   return (
     <section id="certifications" className="certifications section-border-top" style={{ background: 'var(--bg-primary)' }}>
       <Container>
-        <p className="section-label">Credentials</p>
-        <h2 className="section-title">Certifications</h2>
-        <p className="section-subtitle">
-          Continuous learning through professional development and recognized certifications.
-        </p>
+        <div ref={headerRef} className={`reveal ${headerVisible ? 'is-visible' : ''}`}>
+          <p className="section-label">Credentials</p>
+          <h2 className="section-title section-title--underline">Certifications</h2>
+          <p className="section-subtitle">
+            Continuous learning through professional development and recognized certifications.
+          </p>
+        </div>
 
-        <Row className="g-4">
+        <Row ref={gridRef} className="g-4">
           {CERTS.map((cert, i) => (
-            <Col key={cert.title} lg={6} style={{ animationDelay: `${i * 0.1}s` }}>
+            <Col
+              key={cert.title}
+              lg={6}
+              className={`cert-card--lift-in ${gridVisible ? 'is-visible' : ''}`}
+              style={{ '--delay': `${i * 0.12}s` }}
+            >
               <Card className="cert-card h-100">
                 <Card.Body className="d-flex align-items-center gap-3">
 
@@ -74,6 +92,17 @@ function Certifications() {
                       </span>
                     </div>
                     <p className="cert-card__desc">{cert.description}</p>
+                    {cert.verify && (
+                      <a
+                        href={cert.verify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cert-card__verify"
+                        style={{ color: cert.color }}
+                      >
+                        Verify credential →
+                      </a>
+                    )}
                   </div>
 
                   {/* Award icon on the right */}

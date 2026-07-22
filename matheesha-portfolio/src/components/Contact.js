@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './Contact.css';
 
 const CONTACT_ITEMS = [
@@ -60,12 +61,15 @@ function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sent, setSent] = useState(false);
 
+  const [headerRef, headerVisible] = useScrollReveal();
+  const [infoRef, infoVisible]     = useScrollReveal({ threshold: 0.15 });
+  const [formRef, formVisible]     = useScrollReveal({ threshold: 0.15 });
+
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, message } = form;
-    // Opens Gmail compose in a new tab — not the OS mail client
     const gmailUrl =
       `https://mail.google.com/mail/?view=cm` +
       `&to=matheeshaanjana01@gmail.com` +
@@ -80,17 +84,22 @@ function Contact() {
     <section id="contact" className="contact section-border-top" style={{ background: 'var(--bg-secondary)' }}>
       <div className="contact__bg-orb" />
       <Container>
-        <p className="section-label">Get In Touch</p>
-        <h2 className="section-title">Let's Work Together</h2>
-        <p className="section-subtitle">
-          Open to internship opportunities, freelance projects, and exciting collaborations. Drop me a message!
-        </p>
+        <div ref={headerRef} className={`reveal ${headerVisible ? 'is-visible' : ''}`}>
+          <p className="section-label">Get In Touch</p>
+          <h2 className="section-title section-title--underline">Let's Work Together</h2>
+          <p className="section-subtitle">
+            Open to internship opportunities, freelance projects, and exciting collaborations. Drop me a message!
+          </p>
+        </div>
 
         <Row className="gy-5 align-items-start">
 
-          {/* Left: contact info cards */}
+          {/* Left: contact info cards — slides in from the left */}
           <Col lg={4}>
-            <div className="d-flex flex-column gap-3">
+            <div
+              ref={infoRef}
+              className={`d-flex flex-column gap-3 contact-panel--from-left ${infoVisible ? 'is-visible' : ''}`}
+            >
               {CONTACT_ITEMS.map((item) => (
                 <Card key={item.label} className="contact-info-card">
                   <Card.Body className="d-flex align-items-center gap-3">
@@ -108,79 +117,87 @@ function Contact() {
             </div>
           </Col>
 
-          {/* Right: contact form */}
+          {/* Right: contact form — slides in from the right */}
           <Col lg={8}>
-            <Card className="contact-form-card">
-              <Card.Body className="p-4 p-lg-5">
-                <Form onSubmit={handleSubmit}>
-                  <Row className="g-3">
-                    <Col md={6}>
-                      <Form.Group>
-                        <Form.Label className="contact-form__label">Your Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          name="name"
-                          placeholder="John Doe"
-                          value={form.name}
-                          onChange={handleChange}
-                          required
-                          className="contact-form__input"
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col md={6}>
-                      <Form.Group>
-                        <Form.Label className="contact-form__label">Email Address</Form.Label>
-                        <Form.Control
-                          type="email"
-                          name="email"
-                          placeholder="john@example.com"
-                          value={form.email}
-                          onChange={handleChange}
-                          required
-                          className="contact-form__input"
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col xs={12}>
-                      <Form.Group>
-                        <Form.Label className="contact-form__label">Message</Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          name="message"
-                          rows={5}
-                          placeholder="Tell me about your project or opportunity..."
-                          value={form.message}
-                          onChange={handleChange}
-                          required
-                          className="contact-form__input"
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col xs={12}>
-                      <Button type="submit" className="contact-form__submit w-100">
-                        {sent ? (
-                          <>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                              <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            Opening Gmail…
-                          </>
-                        ) : (
-                          <>
-                            Send Message
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <line x1="22" y1="2" x2="11" y2="13"/>
-                              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                            </svg>
-                          </>
-                        )}
-                      </Button>
-                    </Col>
-                  </Row>
-                </Form>
-              </Card.Body>
-            </Card>
+            <div
+              ref={formRef}
+              className={`contact-panel--from-right ${formVisible ? 'is-visible' : ''}`}
+            >
+              <Card className="contact-form-card">
+                <Card.Body className="p-4 p-lg-5">
+                  <Form onSubmit={handleSubmit}>
+                    <Row className="g-3">
+                      <Col md={6}>
+                        <Form.Group>
+                          <Form.Label className="contact-form__label">Your Name</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="name"
+                            placeholder="John Doe"
+                            value={form.name}
+                            onChange={handleChange}
+                            required
+                            className="contact-form__input"
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col md={6}>
+                        <Form.Group>
+                          <Form.Label className="contact-form__label">Email Address</Form.Label>
+                          <Form.Control
+                            type="email"
+                            name="email"
+                            placeholder="john@example.com"
+                            value={form.email}
+                            onChange={handleChange}
+                            required
+                            className="contact-form__input"
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col xs={12}>
+                        <Form.Group>
+                          <Form.Label className="contact-form__label">Message</Form.Label>
+                          <Form.Control
+                            as="textarea"
+                            name="message"
+                            rows={5}
+                            placeholder="Tell me about your project or opportunity..."
+                            value={form.message}
+                            onChange={handleChange}
+                            required
+                            className="contact-form__input"
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col xs={12}>
+                        <Button
+                          type="submit"
+                          className={`contact-form__submit w-100 ${formVisible ? 'contact-form__submit--pulse' : ''}`}
+                        >
+                          {sent ? (
+                            <>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <polyline points="20 6 9 17 4 12"/>
+                              </svg>
+                              Opening Gmail…
+                            </>
+                          ) : (
+                            <>
+                              Send Message
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                              </svg>
+                            </>
+                          )}
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Form>
+                </Card.Body>
+              </Card>
+            </div>
           </Col>
 
         </Row>

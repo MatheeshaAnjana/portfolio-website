@@ -10,6 +10,7 @@ import Footer          from './components/Footer';
 import Welcome         from './components/Welcome';
 import PageTransition  from './components/PageTransition';
 import ScrollProgress  from './components/ScrollProgress';
+import CustomCursor    from './components/CustomCursor';
 import './styles/reveal.css';
 import './App.css';
 
@@ -17,14 +18,18 @@ function App() {
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme]       = useState('dark');
 
-  // Intro stage: 'intro' -> 'transitioning' -> 'main'
-  const [stage, setStage] = useState(
-    () => (sessionStorage.getItem('introSeen') === '1' ? 'main' : 'intro')
+  const [showWelcome, setShowWelcome] = useState(
+    () => sessionStorage.getItem('introSeen') !== '1'
   );
-  const [showWelcome, setShowWelcome] = useState(stage === 'intro');
 
-  // Nav-triggered glass transition (independent of the intro one)
-  const [navTarget, setNavTarget] = useState(null); // href string or null
+  // Hero's entrance animation only plays once Welcome is actually gone.
+  // If the intro was already seen this session, Hero animates immediately.
+  const [heroRevealed, setHeroRevealed] = useState(
+    () => sessionStorage.getItem('introSeen') === '1'
+  );
+
+  // Nav-triggered glass transition (unchanged — still used for section jumps)
+  const [navTarget, setNavTarget] = useState(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -39,12 +44,13 @@ function App() {
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   const handleNavigate = (href) => {
-    if (navTarget) return; // ignore clicks while a transition is already running
+    if (navTarget) return;
     setNavTarget(href);
   };
 
   return (
     <>
+      <CustomCursor />
       <ScrollProgress />
       <Navbar
         scrolled={scrolled}
@@ -53,7 +59,7 @@ function App() {
         onNavigate={handleNavigate}
       />
       <main>
-        <Hero />
+        <Hero revealed={heroRevealed} />
         <About />
         <Skills />
         <Projects />
@@ -62,17 +68,20 @@ function App() {
       </main>
       <Footer />
 
+      {/* Welcome now handles its own exit (slide up + blur) —
+          onFinish just unmounts it once that animation completes,
+          and simultaneously flips heroRevealed so Hero's entrance
+          animation starts exactly as Welcome disappears */}
       {showWelcome && (
-        <Welcome onFinish={() => setStage('transitioning')} />
-      )}
-
-      {stage === 'transitioning' && (
-        <PageTransition
-          onCovered={() => setShowWelcome(false)}
-          onComplete={() => setStage('main')}
+        <Welcome
+          onFinish={() => {
+            setShowWelcome(false);
+            setHeroRevealed(true);
+          }}
         />
       )}
 
+      {/* Nav-link glass transition — still used for section jumps */}
       {navTarget && (
         <PageTransition
           onCovered={() => {

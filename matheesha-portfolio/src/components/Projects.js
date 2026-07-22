@@ -19,7 +19,7 @@ const PROJECTS = [
   {
   title:       'Learnify – Learning Management System',
   subtitle:    'Full-Stack MERN Web Application',
-  description: 'A complete full-stack LMS with three role-based portals — Student, Instructor, and Admin — featuring JWT authentication, video-based course delivery with Cloudinary uploads, real-time notifications, mock payment enrollment flow, course progress tracking, and a glassmorphism UI with dark/light mode.',
+  description: 'Full-stack LMS with Student, Instructor, and Admin portals, featuring JWT auth, Cloudinary video delivery, real-time notifications, mock payment flow, course progress tracking, and a glassmorphism UI with dark/light mode.',
   tech:        ['React', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS', 'JWT', 'Cloudinary', 'Framer Motion'],
   features:    ['Role-based access control', 'Video & PDF lesson upload', 'Real-time notifications', 'Mock payment & enrollment'],
   image:       imgLearnify,
@@ -32,7 +32,7 @@ const PROJECTS = [
 {
   title:       'Loan Approval Prediction System',
   subtitle:    'Machine Learning & Flask Deployment',
-  description: 'An end-to-end machine learning pipeline that predicts loan approval outcomes using binary classification. Includes full data preprocessing, feature engineering, comparison of three ML models (Logistic Regression, KNN, Random Forest), hyperparameter tuning with GridSearchCV, and deployment as a Flask web application.',
+  description: '"End-to-end ML pipeline for loan approval prediction using binary classification, with preprocessing, feature engineering, model comparison (Logistic Regression, KNN, Random Forest), GridSearchCV tuning, and Flask deployment.',
   tech:        ['Python', 'scikit-learn', 'Flask', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'joblib'],
   features:    ['3-model comparison & evaluation', 'GridSearchCV hyperparameter tuning', 'Feature engineering & SelectKBest', 'Flask web app deployment'],
   image:       imgLoanApproval,

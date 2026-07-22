@@ -6,8 +6,8 @@ import './About.css';
 // Quick stats shown in small cards
 const STATS = [
   { value: '2+', label: 'Years Learning' },
-  { value: '12+', label: 'Projects Built' },
-  { value: '6+', label: 'Certifications' },
+  { value: '20+', label: 'Projects Built' },
+  { value: '10+', label: 'Certifications' },
   { value: '∞',  label: 'Curiosity' },
 ];
 

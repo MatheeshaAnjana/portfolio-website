@@ -4,7 +4,7 @@ import profileImg from '../assets/profile.png';
 import cvFile     from '../assets/Matheesha_Amarathunga_CV.pdf';
 import './Hero.css';
 
-function Hero() {
+function Hero({ revealed = true }) {
   const orb1Ref = useRef(null);
   const orb2Ref = useRef(null);
   const orb3Ref = useRef(null);
@@ -13,11 +13,6 @@ function Hero() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return; // skip the whole spring loop — respect the setting
 
-    // Spring/lerp-based parallax: instead of snapping the orbs straight to the
-    // cursor position (and relying purely on a CSS transition to soften it),
-    // we chase a moving target every frame. This gives the orbs real inertia —
-    // they lag, settle, and overshoot slightly, which reads as much more
-    // "physical" than a single eased transition ever can.
     const target = { x: 0, y: 0 };
     const pos = { x: 0, y: 0 };
     let raf;
@@ -28,7 +23,6 @@ function Hero() {
     };
 
     const tick = () => {
-      // Stiffness factor — lower = lazier/heavier drift, higher = snappier.
       const stiffness = 0.065;
       pos.x += (target.x - pos.x) * stiffness;
       pos.y += (target.y - pos.y) * stiffness;
@@ -60,7 +54,7 @@ function Hero() {
 
   return (
     <div className="hero-stick-wrap">
-      <section id="hero" className="hero">
+      <section id="hero" className={`hero ${revealed ? 'hero--play' : ''}`}>
         {/* Ambient orbs */}
         <div className="hero__orb hero__orb--1" ref={orb1Ref} />
         <div className="hero__orb hero__orb--2" ref={orb2Ref} />

@@ -25,7 +25,9 @@ function Welcome({ onFinish }) {
     if (exiting) return;
     setExiting(true);
     sessionStorage.setItem('introSeen', '1');
-    onFinish(); // glass panel (PageTransition) now handles the visual exit
+    // Welcome slides up + blurs itself away — no separate panel needed.
+    // onFinish fires once that exit animation finishes.
+    setTimeout(onFinish, 100);
   };
 
   useEffect(() => {

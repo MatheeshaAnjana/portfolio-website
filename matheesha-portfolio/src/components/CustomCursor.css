@@ -1,0 +1,69 @@
+/* ═══════════════════════════════════════════════
+   CUSTOM CURSOR — red dot with slow-following tail
+   ═══════════════════════════════════════════════ */
+
+.cursor-main-dot,
+.cursor-tail-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.cursor-main-dot.is-visible,
+.cursor-tail-dot.is-visible {
+  opacity: 1;
+}
+
+/* Main dot — solid, sharp, exactly under the mouse */
+.cursor-main-dot {
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  margin-top: -4.5px;
+  background: #ff3b3b;
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.9), 0 0 16px rgba(220, 38, 38, 0.6);
+  transition: width 0.2s ease, height 0.2s ease, margin 0.2s ease, opacity 0.25s ease;
+  z-index: 100000;
+}
+
+.cursor-main-dot--hover {
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  margin-top: -7px;
+  background: #ff5c5c;
+  box-shadow: 0 0 16px rgba(255, 92, 92, 1), 0 0 30px rgba(220, 38, 38, 0.85);
+}
+
+/* Tail dots — each one smaller and dimmer the further back it is,
+   creating a tapering, fading trail behind the main dot */
+.cursor-tail-dot {
+  width: calc(8px - var(--i) * 1px);
+  height: calc(8px - var(--i) * 1px);
+  margin-left: calc((8px - var(--i) * 1px) / -2);
+  margin-top: calc((8px - var(--i) * 1px) / -2);
+  background: #dc2626;
+  opacity: 0;
+}
+.cursor-tail-dot.is-visible {
+  opacity: calc(0.65 - var(--i) * 0.1);
+}
+.cursor-tail-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.5);
+}
+
+/* Hide the native cursor everywhere on fine-pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, input, textarea, select, [role="button"] {
+    cursor: none !important;
+  }
+}

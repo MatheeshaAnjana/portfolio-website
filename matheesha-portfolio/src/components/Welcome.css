@@ -12,19 +12,20 @@
 
 .welcome--exit {
   pointer-events: none;
-  /* No fade here — the glass panel (PageTransition) covers this
-     screen instead, so we keep the terminal frozen and crisp
-     underneath it until it's fully hidden. */
+  animation: welcomeDoorUp 0.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
-@keyframes welcomeFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes welcomeFadeOut {
-  from { opacity: 1; transform: scale(1); }
-  to   { opacity: 0; transform: scale(1.02); }
+@keyframes welcomeDoorUp {
+  0% {
+    transform: translateY(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    filter: blur(16px);
+    opacity: 0;
+  }
 }
 
 /* Ambient glow orbs, matching Hero */

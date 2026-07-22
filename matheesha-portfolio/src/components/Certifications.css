@@ -4,6 +4,42 @@
 
 .certifications { background: var(--bg-primary); }
 
+/* ── Slide up with shadow lift ── */
+.cert-card--lift-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.cert-card--lift-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The shadow lives on the Card itself so it can grow independently
+   of the parent's translateY, giving a "lifting off the page" feel */
+.cert-card--lift-in .cert-card {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s),
+              border-color 0.3s ease, transform 0.3s ease;
+}
+.cert-card--lift-in.is-visible .cert-card {
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), 0 0 30px rgba(220, 38, 38, 0.10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-card--lift-in {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .cert-card--lift-in .cert-card {
+    transition: none !important;
+    box-shadow: var(--shadow-glass) !important;
+  }
+}
+
 /* ── Cert Card ── */
 .cert-card {
   background: var(--bg-glass) !important;
@@ -11,7 +47,6 @@
   border-radius: var(--radius-lg) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-glass);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -28,7 +63,7 @@
 .cert-card:hover {
   border-color: rgba(220,38,38,0.25) !important;
   transform: translateY(-5px);
-  box-shadow: 0 0 32px rgba(220,38,38,0.1), var(--shadow-glass);
+  box-shadow: 0 0 32px rgba(220,38,38,0.1), var(--shadow-glass) !important;
 }
 .cert-card:hover::before { opacity: 1; }
 
@@ -62,6 +97,20 @@
   margin: 6px 0 0;
   line-height: 1.6;
   font-weight: 300;
+}
+
+/* Verify link */
+.cert-card__verify {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 600;
+  margin-top: 8px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.cert-card__verify:hover {
+  opacity: 0.75;
+  text-decoration: underline;
 }
 
 /* Award icon */
