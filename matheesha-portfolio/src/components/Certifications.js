@@ -10,7 +10,6 @@ const CERTS = [
     icon:        '🛡️',
     color:       '#ea4335',
     description: 'Covers core cybersecurity concepts including threat detection, security frameworks, and risk mitigation as part of the Google Cybersecurity Certificate.',
-    verify:      'https://coursera.org/verify/BUVET2G24BK6',
   },
   {
     title:       'Google Network Security Specialization',
