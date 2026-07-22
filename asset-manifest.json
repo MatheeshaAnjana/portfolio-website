@@ -1,22 +1,25 @@
 {
   "files": {
-    "main.css": "/portfolio-website/static/css/main.b18c9813.css",
-    "main.js": "/portfolio-website/static/js/main.2f45d7d0.js",
-    "static/media/thetumeric-web.jpg": "/portfolio-website/static/media/thetumeric-web.42b24253182bff5589d1.jpg",
-    "static/media/assistive-robot.jpg": "/portfolio-website/static/media/assistive-robot.500efef8ed8ec5e90bc0.jpg",
-    "static/media/portfolio.jpg": "/portfolio-website/static/media/portfolio.7257ef8e1a3de36b1df6.jpg",
-    "static/media/thetumeric-mobile.jpg": "/portfolio-website/static/media/thetumeric-mobile.489a6642f67bd886a162.jpg",
-    "static/media/pet-shop.jpg": "/portfolio-website/static/media/pet-shop.27d798da285628fd6668.jpg",
+    "main.css": "/portfolio-website/static/css/main.69614796.css",
+    "main.js": "/portfolio-website/static/js/main.fcd4f163.js",
+    "static/media/smart-gadget.jpg": "/portfolio-website/static/media/smart-gadget.edc4ad069bbdb64c1697.jpg",
+    "static/media/assistive-robot.jpg": "/portfolio-website/static/media/assistive-robot.7429a6e15efb30d64248.jpg",
+    "static/media/learnify.jpg": "/portfolio-website/static/media/learnify.8470b6582959628f16a5.jpg",
+    "static/media/thetumeric-mobile.jpg": "/portfolio-website/static/media/thetumeric-mobile.76467e7adeef1f6f96b7.jpg",
+    "static/media/thetumeric-web.jpg": "/portfolio-website/static/media/thetumeric-web.c316dd1aae93e8f4c8cc.jpg",
+    "static/media/pet-shop.jpg": "/portfolio-website/static/media/pet-shop.a392bd31dbcc3a72c72e.jpg",
+    "static/media/smart-queue.jpg": "/portfolio-website/static/media/smart-queue.ef65fa8e2b4ece1e6a4e.jpg",
+    "static/media/loan-approval.jpg": "/portfolio-website/static/media/loan-approval.bf0d890b40a0711efb4a.jpg",
     "static/media/profile.png": "/portfolio-website/static/media/profile.199544ca3bb0fc9b5f05.png",
-    "static/media/smart-queue.jpg": "/portfolio-website/static/media/smart-queue.7754f1832d542345cd13.jpg",
-    "static/media/smart-gadget.jpg": "/portfolio-website/static/media/smart-gadget.6c704ad53cb21134de2d.jpg",
+    "static/media/smart-medicine-robot.jpg": "/portfolio-website/static/media/smart-medicine-robot.6009ae8d062c12d2c330.jpg",
+    "static/media/portfolio.jpg": "/portfolio-website/static/media/portfolio.c4570ab39c21857a8f18.jpg",
     "static/media/Matheesha_Amarathunga_CV.pdf": "/portfolio-website/static/media/Matheesha_Amarathunga_CV.4424e460ab4305928f3b.pdf",
     "index.html": "/portfolio-website/index.html",
-    "main.b18c9813.css.map": "/portfolio-website/static/css/main.b18c9813.css.map",
-    "main.2f45d7d0.js.map": "/portfolio-website/static/js/main.2f45d7d0.js.map"
+    "main.69614796.css.map": "/portfolio-website/static/css/main.69614796.css.map",
+    "main.fcd4f163.js.map": "/portfolio-website/static/js/main.fcd4f163.js.map"
   },
   "entrypoints": [
-    "static/css/main.b18c9813.css",
-    "static/js/main.2f45d7d0.js"
+    "static/css/main.69614796.css",
+    "static/js/main.fcd4f163.js"
   ]
 }
