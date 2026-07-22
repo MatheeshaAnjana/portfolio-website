@@ -15,6 +15,11 @@
   width: 100%;
 }
 
+/* NOTE: every transition this button needs (hover states AND the pop-in
+   entrance) is declared in this single shorthand. Splitting the entrance
+   transition into a second class with its own `transition` property would
+   silently override this one (only one `transition` declaration can win
+   per element), so everything lives here together. */
 .skills__filter-btn {
   font-family: 'DM Sans', sans-serif !important;
   font-size: 0.8rem !important;
@@ -26,7 +31,10 @@
   color: var(--text-secondary) !important;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  transition: all 0.2s ease !important;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+              box-shadow 0.2s ease,
+              opacity 0.5s var(--ease-snap, ease),
+              transform 0.5s var(--ease-spring, ease) !important;
   letter-spacing: 0.03em;
   white-space: nowrap;
   flex: 0 0 auto;
@@ -43,7 +51,20 @@
   box-shadow: 0 0 20px rgba(220,38,38,0.35) !important;
 }
 
-/* ── Skill card ── */
+/* Staggered pop-in for the pills */
+.skills__filter-btn--pop {
+  opacity: 0;
+  transform: scale(0.5);
+  transition-delay: var(--delay, 0s) !important;
+}
+.skills__filter-btn--pop.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Skill card ──
+   Same rule as the filter pills above: every transition (hover lift AND
+   the pop-in entrance) lives in this one shorthand. */
 .skills__skill-card {
   background: var(--bg-glass);
   border: 1px solid var(--border-glass);
@@ -51,23 +72,28 @@
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   box-shadow: var(--shadow-glass);
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease,
-              opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease,
+              opacity 0.5s var(--ease-snap, ease),
+              transform 0.5s var(--ease-spring, ease),
+              filter 0.45s var(--ease-snap, ease);
   position: relative;
   overflow: hidden;
   padding: 18px 20px;
 }
 
-/* Blur-in cascade — only plays once scrolled into view */
-.skills__skill-card--animate {
+/* Bouncy pop-in cascade — only plays once scrolled into view.
+   Distinct from the blur-fade used elsewhere: these cards spring
+   up from a smaller scale rather than just fading through blur. */
+.skills__skill-card--pop {
   opacity: 0;
-  filter: blur(9px) saturate(0.6);
+  transform: scale(0.8) translateY(14px);
+  filter: blur(5px);
   transition-delay: var(--delay, 0s);
 }
-.skills__skill-card--animate.is-visible {
+.skills__skill-card--pop.is-visible {
   opacity: 1;
-  filter: blur(0) saturate(1);
+  transform: scale(1) translateY(0);
+  filter: blur(0);
 }
 
 .skills__skill-card::before {
@@ -119,10 +145,12 @@
   font-weight: 500;
   color: var(--text-muted);
   margin: 2px 0 0;
+  font-variant-numeric: tabular-nums; /* keeps the count-up from jittering in width */
 }
 
-/* Progress bar — width is now controlled inline via React state,
-   so this only needs a smooth transition, no keyframe animation */
+/* Progress bar — width is controlled inline via React state for the
+   scroll-triggered fill, plus a one-shot shimmer sweep layered on top
+   once it starts filling. */
 .skills__bar-track {
   width: 100%;
   height: 6px;
@@ -135,22 +163,56 @@
 }
 
 .skills__bar-fill {
+  position: relative;
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(90deg, #7f1d1d, var(--accent-bright, #dc2626));
   box-shadow: 0 0 10px rgba(220,38,38,0.5);
   width: 0%;
+  overflow: hidden;
   transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Shimmer sweep — a soft diagonal highlight that races across the bar
+   right after it starts filling. Inherits --delay from the ancestor
+   card so it roughly lines up with the fill's own transition-delay. */
+.skills__bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg);
+  opacity: 0;
+}
+.skills__skill-card--pop.is-visible .skills__bar-fill::after {
+  animation: barShine 1.1s var(--ease-out-expo, ease) both;
+  animation-delay: calc(var(--delay, 0s) + 0.15s);
+}
+
+@keyframes barShine {
+  0%   { left: -40%; opacity: 0; }
+  15%  { opacity: 0.9; }
+  60%  { opacity: 0.35; }
+  100% { left: 120%; opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .skills__skill-card--animate {
+  .skills__filter-btn--pop,
+  .skills__skill-card--pop {
     transition: none !important;
     opacity: 1 !important;
+    transform: none !important;
     filter: none !important;
   }
   .skills__bar-fill {
     transition: none !important;
+  }
+  .skills__bar-fill::after {
+    animation: none !important;
+    opacity: 0 !important;
   }
 }
 

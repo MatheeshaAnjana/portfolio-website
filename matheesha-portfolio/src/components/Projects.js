@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Container, ButtonGroup, Button } from 'react-bootstrap';
 import useScrollReveal from '../hooks/useScrollReveal';
 import './Projects.css';
@@ -11,8 +11,50 @@ import imgTumericMobile from '../assets/projects/thetumeric-mobile.jpg';
 import imgRobot         from '../assets/projects/assistive-robot.jpg';
 import imgPetShop       from '../assets/projects/pet-shop.jpg';
 import imgSmartQueue    from '../assets/projects/smart-queue.jpg';
+import imgLearnify      from '../assets/projects/learnify.jpg';
+import imgSmartMedicineRobot from '../assets/projects/smart-medicine-robot.jpg';
+import imgLoanApproval from '../assets/projects/loan-approval.jpg';
 
 const PROJECTS = [
+  {
+  title:       'Learnify – Learning Management System',
+  subtitle:    'Full-Stack MERN Web Application',
+  description: 'A complete full-stack LMS with three role-based portals — Student, Instructor, and Admin — featuring JWT authentication, video-based course delivery with Cloudinary uploads, real-time notifications, mock payment enrollment flow, course progress tracking, and a glassmorphism UI with dark/light mode.',
+  tech:        ['React', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS', 'JWT', 'Cloudinary', 'Framer Motion'],
+  features:    ['Role-based access control', 'Video & PDF lesson upload', 'Real-time notifications', 'Mock payment & enrollment'],
+  image:       imgLearnify,
+  emoji:       '🎓',
+  color:       '#0a84ff',
+  type:        'Web',
+  github:      'https://github.com/MatheeshaAnjana/learnify-lms-website.git',
+  demo:        null,
+},
+{
+  title:       'Loan Approval Prediction System',
+  subtitle:    'Machine Learning & Flask Deployment',
+  description: 'An end-to-end machine learning pipeline that predicts loan approval outcomes using binary classification. Includes full data preprocessing, feature engineering, comparison of three ML models (Logistic Regression, KNN, Random Forest), hyperparameter tuning with GridSearchCV, and deployment as a Flask web application.',
+  tech:        ['Python', 'scikit-learn', 'Flask', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'joblib'],
+  features:    ['3-model comparison & evaluation', 'GridSearchCV hyperparameter tuning', 'Feature engineering & SelectKBest', 'Flask web app deployment'],
+  image:       imgLoanApproval,
+  emoji:       '🏦',
+  color:       '#f39c12',
+  type:        'ML',
+  github:      'https://github.com/MatheeshaAnjana/loan-approval-prediction-ml.git',
+  demo:        null,
+},
+{
+  title:       'Smart Hospital Medicine Cart System',
+  subtitle:    'IoT-Based Healthcare Automation System',
+  description: 'An IoT-powered smart medicine cart that automates medicine delivery using ESP32, RFID patient identification, Firebase cloud services, a React web dashboard, and a mobile application for real-time monitoring and patient safety.',
+  tech:        ['React', 'Firebase', 'ESP32', 'RFID', 'Arduino', 'JavaScript', 'IoT'],
+  features:    ['RFID patient verification', 'Real-time medicine tracking', 'Hospital dashboard', 'Mobile monitoring'],
+  image:       imgSmartMedicineRobot,
+  emoji:       '🤖',
+  color:       '#00b894',
+  type:        'Robotics',
+  github:      'https://github.com/MatheeshaAnjana/your-repository',
+  demo:        null,
+},
   {
     title:       'Personal Portfolio Website',
     subtitle:    'Interactive Developer Portfolio',
@@ -49,6 +91,7 @@ const PROJECTS = [
     emoji:       '🌐',
     color:       '#f9ca24',
     type:        'Web',
+    categories:  ['Web', 'AI'],
     github:      'https://github.com/MatheeshaAnjana/TheTumeric-FoodDeliveryWebSite.git',
     demo:        null,
   },
@@ -107,22 +150,44 @@ const PROJECTS = [
 ];
 
 const FILTERS = [
-  { label: 'All',      icon: null },
-  { label: 'Web',      icon: '🌐' },
-  { label: 'Mobile',   icon: '📱' },
-  { label: 'Robotics', icon: '🤖' },
+  { label: 'All',      categories: [], icon: null },
+  { label: 'Web',      categories: ['Web'], icon: '🌐' },
+  { label: 'Mobile',   categories: ['Mobile'], icon: '📱' },
+  { label: 'AI & ML',  categories: ['AI', 'ML'], icon: '🧠' },
+  { label: 'Robotics', categories: ['Robotics'], icon: '🤖' },
 ];
 
 function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
   const scrollRef  = useRef(null);
-  const dragState  = useRef({ isDown: false, startX: 0, startScroll: 0, moved: false });
+  const dragState  = useRef({
+    isDown: false,
+    startX: 0,
+    startScroll: 0,
+    moved: false,
+    lastX: 0,
+    lastTime: 0,
+    velocity: 0,   // px/ms, smoothed
+    rafId: null,
+  });
+  const prefersReducedRef = useRef(false);
   const [headerRef, headerVisible] = useScrollReveal();
   const [carouselRef, carouselVisible] = useScrollReveal({ threshold: 0.1 });
 
-  const visible = activeFilter === 'All'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.type === activeFilter);
+  useEffect(() => {
+    prefersReducedRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return () => cancelAnimationFrame(dragState.current.rafId);
+  }, []);
+
+  const visible = (() => {
+    if (activeFilter === 'All') return PROJECTS;
+    const filter = FILTERS.find((f) => f.label === activeFilter);
+    if (!filter) return PROJECTS;
+    return PROJECTS.filter((project) => {
+      const categories = project.categories ?? [project.type];
+      return categories.some((category) => filter.categories.includes(category));
+    });
+  })();
 
   const getRoboticsLinkLabel = (project) => {
     if (project.type === 'Robotics') return 'LinkedIn';
@@ -131,11 +196,16 @@ function Projects() {
 
   const onMouseDown = (e) => {
     const el = scrollRef.current;
+    cancelAnimationFrame(dragState.current.rafId); // stop any in-flight momentum glide
     dragState.current = {
       isDown: true,
       startX: e.pageX,
       startScroll: el.scrollLeft,
       moved: false,
+      lastX: e.pageX,
+      lastTime: performance.now(),
+      velocity: 0,
+      rafId: null,
     };
     el.classList.add('projects__scroll--dragging');
   };
@@ -146,12 +216,47 @@ function Projects() {
     const dx = e.pageX - dragState.current.startX;
     if (Math.abs(dx) > 4) dragState.current.moved = true;
     el.scrollLeft = dragState.current.startScroll - dx;
+
+    // Track a smoothed instantaneous velocity so the release "fling" reflects
+    // how fast the pointer was actually moving, not just the last pixel jump.
+    const now = performance.now();
+    const dt = now - dragState.current.lastTime;
+    if (dt > 0) {
+      const instVelocity = (e.pageX - dragState.current.lastX) / dt;
+      dragState.current.velocity = dragState.current.velocity * 0.7 + instVelocity * 0.3;
+    }
+    dragState.current.lastX = e.pageX;
+    dragState.current.lastTime = now;
   };
 
   const endDrag = () => {
     if (!dragState.current.isDown) return;
     dragState.current.isDown = false;
-    scrollRef.current?.classList.remove('projects__scroll--dragging');
+    const el = scrollRef.current;
+    el?.classList.remove('projects__scroll--dragging');
+    if (!el) return;
+
+    // Momentum: coast onward in the direction the drag was moving and
+    // decelerate smoothly, instead of stopping dead the instant the
+    // mouse button is released — this is the bulk of "smoother drag physics".
+    let velocity = dragState.current.velocity * 16; // px/ms → approx px/frame at 60fps
+    const friction = 0.94;
+
+    const glide = () => {
+      if (Math.abs(velocity) < 0.5) return;
+      const max = el.scrollWidth - el.clientWidth;
+      const next = el.scrollLeft - velocity;
+      el.scrollLeft = Math.max(0, Math.min(next, max));
+      velocity *= friction;
+
+      if (el.scrollLeft > 0 && el.scrollLeft < max) {
+        dragState.current.rafId = requestAnimationFrame(glide);
+      }
+    };
+
+    if (Math.abs(velocity) > 1) {
+      dragState.current.rafId = requestAnimationFrame(glide);
+    }
   };
 
   const onClickCapture = (e) => {
@@ -170,6 +275,33 @@ function Projects() {
       el.scrollLeft += e.deltaY;
       e.preventDefault();
     }
+  };
+
+  // 3D cursor-tilt: rotation is set directly on the DOM node (not via React
+  // state) so it tracks the pointer with zero re-render lag. The card's own
+  // `transition` (declared once, in Projects.css) handles the smooth
+  // spring-back on mouse leave; while actively tilting we drop to a near-
+  // instant transition via the `.is-tilting` class so it feels responsive.
+  const handleCardMouseMove = (e) => {
+    if (dragState.current.isDown) return; // don't fight the carousel drag
+    if (prefersReducedRef.current) return;
+
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5 .. 0.5
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    const maxTilt = 9; // degrees
+
+    card.style.setProperty('--ry', `${(px * maxTilt * 2).toFixed(2)}deg`);
+    card.style.setProperty('--rx', `${(-py * maxTilt * 2).toFixed(2)}deg`);
+    card.classList.add('is-tilting');
+  };
+
+  const handleCardMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.classList.remove('is-tilting');
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
   };
 
   return (
@@ -213,6 +345,8 @@ function Projects() {
             className={`project-card project-card--slide-in ${project.type === 'Robotics' ? 'project-card--robotics' : ''} ${carouselVisible ? 'is-visible' : ''}`}
             key={`${project.title}-${i}`}
             style={{ '--delay': `${i * 0.09}s` }}
+            onMouseMove={handleCardMouseMove}
+            onMouseLeave={handleCardMouseLeave}
           >
             <div className="project-card__image-wrap">
               <img src={project.image} alt={project.title} className="project-card__image" draggable="false" />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
 import useScrollReveal from '../hooks/useScrollReveal';
 import './Skills.css';
@@ -75,11 +75,127 @@ const SKILL_CATEGORIES = [
   },
 ];
 
+/* Counts up from 0 to `target` once `active` flips true, eased out so it
+   settles rather than ticking linearly — synced roughly to the bar fill
+   via `delay`. Falls back to showing the target instantly under
+   prefers-reduced-motion. */
+function AnimatedPercent({ target, active, delay = 0, duration = 900 }) {
+  const [value, setValue] = useState(0);
+  const rafRef = useRef(null);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!active) {
+      setValue(0);
+      return undefined;
+    }
+    if (prefersReduced) {
+      setValue(target);
+      return undefined;
+    }
+
+    let start;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setValue(Math.round(eased * target));
+      if (progress < 1) rafRef.current = requestAnimationFrame(step);
+    };
+
+    timeoutRef.current = setTimeout(() => {
+      rafRef.current = requestAnimationFrame(step);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutRef.current);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [active, target, delay, duration]);
+
+  return <>{value}%</>;
+}
+
+/* Renders one category's grid of skill cards. Deliberately its own
+   component (rather than inline JSX in Skills()) so that giving it
+   `key={activeFilter}` at the call site fully remounts it — and with it,
+   the local `filled` state below — every time the user switches tabs.
+
+   `revealed` is the one-shot "has this section been scrolled into view
+   at least once" flag from the parent. `filled` is a SEPARATE, local
+   flag that starts false on every mount and flips true a beat later —
+   so switching tabs (which remounts this component thanks to the key)
+   always replays the 0 → target fill, instead of only playing once
+   ever like `revealed` does. */
+function SkillsGrid({ activeCategory, revealed }) {
+  const [filled, setFilled] = useState(false);
+
+  useEffect(() => {
+    if (!revealed) return undefined;
+
+    // Wait a frame (or two) before flipping — if we set `filled` true in
+    // the very same paint the cards are created in, the browser has no
+    // "0%" state to transition FROM, so nothing would visibly animate.
+    let raf2;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => setFilled(true));
+    });
+
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, [revealed]);
+
+  return (
+    <Row className="g-4">
+      {activeCategory.skills.map((skill, i) => {
+        const delaySeconds = i * 0.06;
+        return (
+          <Col key={skill.name} lg={3} md={4} sm={6}>
+            <div
+              className={`skills__skill-card skills__skill-card--pop ${filled ? 'is-visible' : ''}`}
+              style={{ '--delay': `${delaySeconds}s` }}
+            >
+              <div className="skills__skill-top">
+                <span className="skills__skill-icon">{skill.icon}</span>
+                <div>
+                  <p className="skills__skill-name">{skill.name}</p>
+                  <p className="skills__skill-level">
+                    <AnimatedPercent
+                      target={skill.level}
+                      active={filled}
+                      delay={delaySeconds * 1000 + 150}
+                    />
+                  </p>
+                </div>
+              </div>
+              <div className="skills__bar-track">
+                <div
+                  className="skills__bar-fill"
+                  style={{
+                    width: filled ? `${skill.level}%` : '0%',
+                    transitionDelay: `${delaySeconds + 0.15}s`,
+                  }}
+                />
+              </div>
+            </div>
+          </Col>
+        );
+      })}
+    </Row>
+  );
+}
+
 function Skills() {
   const [activeFilter, setActiveFilter] = useState(SKILL_CATEGORIES[0].category);
   const [headerRef, headerVisible]   = useScrollReveal();
   const [filtersRef, filtersVisible] = useScrollReveal();
-  // Tracks the grid itself — bars only fill once this is scrolled into view
+  // Tracks the grid wrapper — one-shot "has it ever been scrolled into
+  // view" flag. Stays on this stable, non-remounted wrapper div so the
+  // IntersectionObserver isn't torn down and re-created every tab switch.
   const [gridRef, gridVisible]       = useScrollReveal({ threshold: 0.2 });
 
   const activeCategory = SKILL_CATEGORIES.find((c) => c.category === activeFilter);
@@ -95,13 +211,16 @@ function Skills() {
           </p>
         </div>
 
-        <div ref={filtersRef} className={`reveal ${filtersVisible ? 'is-visible' : ''}`}>
+        {/* Filter pills now pop in one after another instead of the whole
+            row fading in as one block */}
+        <div ref={filtersRef}>
           <ButtonGroup className="skills__filters mb-4">
-            {SKILL_CATEGORIES.map((cat) => (
+            {SKILL_CATEGORIES.map((cat, i) => (
               <Button
                 key={cat.category}
                 variant={activeFilter === cat.category ? 'primary' : 'outline-secondary'}
-                className={`skills__filter-btn ${activeFilter === cat.category ? 'skills__filter-btn--active' : ''}`}
+                className={`skills__filter-btn skills__filter-btn--pop ${activeFilter === cat.category ? 'skills__filter-btn--active' : ''} ${filtersVisible ? 'is-visible' : ''}`}
+                style={{ '--delay': `${i * 0.05}s` }}
                 onClick={() => setActiveFilter(cat.category)}
               >
                 {cat.category}
@@ -110,34 +229,12 @@ function Skills() {
           </ButtonGroup>
         </div>
 
-        {/* key={activeFilter} forces remount so bars reset to 0% on filter change too */}
-        <Row ref={gridRef} className="g-4" key={activeFilter}>
-          {activeCategory.skills.map((skill, i) => (
-            <Col key={skill.name} lg={3} md={4} sm={6}>
-              <div
-                className={`skills__skill-card skills__skill-card--animate ${gridVisible ? 'is-visible' : ''}`}
-                style={{ '--delay': `${i * 0.06}s` }}
-              >
-                <div className="skills__skill-top">
-                  <span className="skills__skill-icon">{skill.icon}</span>
-                  <div>
-                    <p className="skills__skill-name">{skill.name}</p>
-                    <p className="skills__skill-level">{skill.level}%</p>
-                  </div>
-                </div>
-                <div className="skills__bar-track">
-                  <div
-                    className="skills__bar-fill"
-                    style={{
-                      width: gridVisible ? `${skill.level}%` : '0%',
-                      transitionDelay: `${i * 0.06 + 0.15}s`,
-                    }}
-                  />
-                </div>
-              </div>
-            </Col>
-          ))}
-        </Row>
+        {/* key={activeFilter} remounts SkillsGrid on every tab switch,
+            which resets its internal `filled` state and replays the
+            0 → target fill/pop/count-up from scratch each time. */}
+        <div ref={gridRef}>
+          <SkillsGrid key={activeFilter} activeCategory={activeCategory} revealed={gridVisible} />
+        </div>
       </Container>
     </section>
   );

@@ -1,6 +1,17 @@
 /* ═══════════════════════════════════════════════
-   REVEAL.CSS — Glass Blur-In + Staggered Cascade
+   REVEAL.CSS — Shared Motion System
+   Every section pulls its animation identity from
+   the tokens + variants defined here.
    ═══════════════════════════════════════════════ */
+
+:root {
+  /* Shared easing vocabulary — reuse these everywhere instead of
+     hand-writing cubic-beziers per component. */
+  --ease-smooth:  cubic-bezier(0.22, 1, 0.36, 1);   /* calm, decelerating — default reveals */
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1); /* slight overshoot — playful pop-ins */
+  --ease-snap:    cubic-bezier(0.65, 0, 0.35, 1);    /* fast in/out — covers, wipes */
+  --ease-out-expo:cubic-bezier(0.16, 1, 0.3, 1);     /* very fast start, long soft tail */
+}
 
 /* ── Base reveal: blur-in + fade + slight rise ── */
 /* Used for standalone blocks (bio text, headers, single cards) */
@@ -8,9 +19,9 @@
   opacity: 0;
   transform: translateY(24px) scale(0.985);
   filter: blur(10px) saturate(0.7);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.8s var(--ease-smooth),
+              transform 0.8s var(--ease-smooth),
+              filter 0.8s var(--ease-smooth);
   will-change: opacity, transform, filter;
 }
 .reveal.is-visible {
@@ -24,9 +35,9 @@
   opacity: 0;
   transform: translateY(18px) scale(0.93);
   filter: blur(12px) saturate(0.6);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.7s var(--ease-smooth),
+              transform 0.7s var(--ease-smooth),
+              filter 0.7s var(--ease-smooth);
   will-change: opacity, transform, filter;
 }
 .reveal-scale.is-visible {
@@ -41,9 +52,9 @@
   opacity: 0;
   transform: translateY(26px) scale(0.94);
   filter: blur(9px) saturate(0.65);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.6s var(--ease-smooth),
+              transform 0.6s var(--ease-smooth),
+              filter 0.6s var(--ease-smooth);
   transition-delay: var(--delay, 0s);
   will-change: opacity, transform, filter;
 }
@@ -51,6 +62,154 @@
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: blur(0) saturate(1);
+}
+
+/* ── Side-slide reveal ── */
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.75s var(--ease-smooth),
+              transform 0.75s var(--ease-smooth),
+              filter 0.75s var(--ease-smooth);
+  transition-delay: var(--delay, 0s);
+  will-change: opacity, transform, filter;
+}
+.reveal-left  { transform: translateX(-36px); }
+.reveal-right { transform: translateX(36px); }
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+
+/* ── 3D flip-in ── */
+/* For cards that should feel like they're rotating into place (e.g. certifications) */
+.reveal-flip {
+  opacity: 0;
+  transform: perspective(900px) rotateX(28deg) translateY(20px) scale(0.96);
+  filter: blur(6px);
+  transition: opacity 0.7s var(--ease-snap),
+              transform 0.7s var(--ease-spring),
+              filter 0.7s var(--ease-snap);
+  transition-delay: var(--delay, 0s);
+  transform-style: preserve-3d;
+  will-change: opacity, transform, filter;
+}
+.reveal-flip.is-visible {
+  opacity: 1;
+  transform: perspective(900px) rotateX(0deg) translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* ── Bouncy pop-in ── */
+/* For small elements — pills, badges, icons — that should feel snappy, not gentle */
+.reveal-pop {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.5s var(--ease-snap),
+              transform 0.55s var(--ease-spring);
+  transition-delay: var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal-pop.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Mask / clip-path wipe ── */
+/* For headings and short lines of text — reveals via a hard-edged wipe
+   instead of a fade, reads as more "designed" for hero-style headlines. */
+.reveal-mask {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.9s var(--ease-out-expo);
+  transition-delay: var(--delay, 0s);
+  will-change: clip-path;
+}
+.reveal-mask.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ═══════════════════════════════════════════════
+   NEW FOUNDATION PRIMITIVES
+   (used by About / Skills / Projects / Contact)
+   ═══════════════════════════════════════════════ */
+
+/* ── Timeline line-draw ── */
+/* Wrap a vertical line element with this; it grows from 0 to full height
+   top-down as its container scrolls into view. Pair with .reveal-left/right
+   on the timeline items themselves for a nice combined effect. */
+.timeline-line {
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 1.1s var(--ease-out-expo);
+  transition-delay: var(--delay, 0.1s);
+  will-change: transform;
+}
+.timeline-line.is-visible {
+  transform: scaleY(1);
+}
+
+/* ── Skill bar fill ── */
+/* Set --pct (e.g. style={{ '--pct': '82%' }}) on the element carrying this
+   class. The bar sits at 0 width until is-visible flips, then animates to
+   --pct with a soft spring-like ease. */
+.skill-fill {
+  width: 0%;
+  transition: width 1.2s var(--ease-out-expo);
+  transition-delay: var(--delay, 0.1s);
+  will-change: width;
+}
+.skill-fill.is-visible {
+  width: var(--pct, 100%);
+}
+
+/* ── 3D tilt card wrapper ── */
+/* Apply to a card container. JS sets --rx / --ry (rotation degrees) on
+   mousemove and resets them to 0 on mouseleave. The transition only kicks
+   in on release, so the tilt itself feels instant/responsive to the cursor,
+   but the return-to-rest is smooth. */
+.tilt-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.5s var(--ease-out-expo);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-card.is-tilting {
+  transition: transform 0.08s linear;
+}
+
+/* ── Focus glow (form fields) ── */
+/* Add alongside existing input/textarea styles. Animates a soft ring +
+   glow on focus rather than a hard outline swap. */
+.focus-glow {
+  transition: box-shadow 0.35s var(--ease-smooth),
+              border-color 0.35s var(--ease-smooth),
+              transform 0.35s var(--ease-smooth);
+}
+.focus-glow:focus,
+.focus-glow:focus-within {
+  transform: translateY(-1px);
+  border-color: var(--accent-bright, #ef4444);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #dc2626) 25%, transparent),
+              0 6px 20px -8px color-mix(in srgb, var(--accent, #dc2626) 60%, transparent);
+}
+
+/* ── Button micro-interaction ── */
+.btn-press {
+  transition: transform 0.25s var(--ease-spring),
+              box-shadow 0.25s var(--ease-smooth);
+}
+.btn-press:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--accent, #dc2626) 55%, transparent);
+}
+.btn-press:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 0.1s;
 }
 
 /* ── Section title animated underline accent ── */
@@ -65,25 +224,37 @@
   bottom: -8px;
   height: 3px;
   width: 0%;
-  background: linear-gradient(90deg, var(--accent, #dc2626), transparent);
+  background: linear-gradient(90deg, var(--accent, #dc2626), var(--accent-bright, #ef4444), transparent);
+  background-size: 200% 100%;
   border-radius: 999px;
-  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+  transition: width 0.8s var(--ease-smooth) 0.25s,
+              background-position 1.1s var(--ease-smooth) 0.25s;
 }
 .reveal.is-visible .section-title--underline::after,
 .is-visible .section-title--underline::after {
   width: 100%;
+  background-position: -100% 0;
 }
 
 /* ── Reduced motion: skip blur/transform, just show content ── */
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-scale, .reveal-stagger {
+  .reveal, .reveal-scale, .reveal-stagger,
+  .reveal-left, .reveal-right, .reveal-flip,
+  .reveal-pop, .reveal-mask, .timeline-line,
+  .skill-fill, .tilt-card {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+    clip-path: none !important;
+    width: var(--pct, 100%) !important;
   }
   .section-title--underline::after {
     transition: none !important;
     width: 100% !important;
+    background-position: 0 0 !important;
+  }
+  .focus-glow, .btn-press {
+    transition: none !important;
   }
 }

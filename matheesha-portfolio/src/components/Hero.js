@@ -10,15 +10,49 @@ function Hero() {
   const orb3Ref = useRef(null);
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return; // skip the whole spring loop — respect the setting
+
+    // Spring/lerp-based parallax: instead of snapping the orbs straight to the
+    // cursor position (and relying purely on a CSS transition to soften it),
+    // we chase a moving target every frame. This gives the orbs real inertia —
+    // they lag, settle, and overshoot slightly, which reads as much more
+    // "physical" than a single eased transition ever can.
+    const target = { x: 0, y: 0 };
+    const pos = { x: 0, y: 0 };
+    let raf;
+
     const onMouseMove = (e) => {
-      const x = (e.clientX / window.innerWidth  - 0.5) * 30;
-      const y = (e.clientY / window.innerHeight - 0.5) * 30;
-      if (orb1Ref.current) orb1Ref.current.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
-      if (orb2Ref.current) orb2Ref.current.style.transform = `translate(${-x * 0.28}px, ${-y * 0.28}px)`;
-      if (orb3Ref.current) orb3Ref.current.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+      target.x = (e.clientX / window.innerWidth - 0.5) * 30;
+      target.y = (e.clientY / window.innerHeight - 0.5) * 30;
     };
+
+    const tick = () => {
+      // Stiffness factor — lower = lazier/heavier drift, higher = snappier.
+      const stiffness = 0.065;
+      pos.x += (target.x - pos.x) * stiffness;
+      pos.y += (target.y - pos.y) * stiffness;
+
+      if (orb1Ref.current) {
+        orb1Ref.current.style.transform = `translate3d(${pos.x * 0.4}px, ${pos.y * 0.4}px, 0)`;
+      }
+      if (orb2Ref.current) {
+        orb2Ref.current.style.transform = `translate3d(${-pos.x * 0.28}px, ${-pos.y * 0.28}px, 0)`;
+      }
+      if (orb3Ref.current) {
+        orb3Ref.current.style.transform = `translate3d(${pos.x * 0.18}px, ${pos.y * 0.22}px, 0)`;
+      }
+
+      raf = requestAnimationFrame(tick);
+    };
+
     window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   const goToProjects = () =>
@@ -38,26 +72,26 @@ function Hero() {
 
             {/* LEFT — Text content */}
             <Col lg={6} className="hero__content">
-              <div className="hero__avail-badge">
+              <div className="hero__avail-badge hero-anim-badge">
                 <span className="hero__avail-dot" />
                 Available for work
               </div>
 
               <h1 className="hero__title">
-                <span className="hero__greeting">
+                <span className="hero__greeting hero-anim-greet">
                   <span className="hero__prompt">&gt;</span> Hi, I'm
                 </span>
-                <span className="hero__name d-block">Matheesha</span>
-                <span className="hero__name hero__name--sub d-block">Amarathunga</span>
+                <span className="hero__name d-block hero-anim-name1">Matheesha</span>
+                <span className="hero__name hero__name--sub d-block hero-anim-name2">Amarathunga</span>
               </h1>
 
-              <p className="hero__role">
+              <p className="hero__role hero-anim-role">
                 <span className="hero__prompt">$</span>{' '}
                 <span className="hero__role-hl">Full-Stack</span> Software Engineer
                 <span className="hero__cursor" />
               </p>
 
-              <div className="hero__actions">
+              <div className="hero__actions hero-anim-actions">
                 <a href={cvFile} download="Matheesha_Amarathunga_CV.pdf" className="hero__btn-primary">
                   <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
@@ -72,7 +106,7 @@ function Hero() {
                 </button>
               </div>
 
-              <div className="hero__socials">
+              <div className="hero__socials hero-anim-socials">
                 <a href="https://linkedin.com/in/matheesha-amarathunga-87221a373" target="_blank" rel="noopener noreferrer" className="hero__social" aria-label="LinkedIn">
                   <svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
                     <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>

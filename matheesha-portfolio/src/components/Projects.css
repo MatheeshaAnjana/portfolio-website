@@ -7,19 +7,33 @@
 /* ── Filter Buttons wrapper ── */
 .projects__filters {
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
   background: transparent;
   border: none;
-  padding: 0;
-  flex-wrap: wrap;
+  padding: 0 4px 8px;
+  flex-wrap: nowrap;
   width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+.projects__filters::-webkit-scrollbar {
+  height: 6px;
+}
+.projects__filters::-webkit-scrollbar-thumb {
+  background: rgba(220,38,38,0.35);
+  border-radius: 999px;
+}
+.projects__filters::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .projects__filter-btn {
   font-family: 'DM Sans', sans-serif !important;
-  font-size: 0.8rem !important;
+  font-size: 0.82rem !important;
   font-weight: 500 !important;
-  padding: 8px 18px !important;
+  padding: 9px 18px !important;
   border-radius: var(--radius-sm) !important;
   border: 1px solid var(--border-glass) !important;
   background: var(--bg-glass) !important;
@@ -30,9 +44,10 @@
   letter-spacing: 0.03em;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 8px !important;
   white-space: nowrap;
   flex: 0 0 auto;
+  scroll-snap-align: start;
 }
 .projects__filter-btn:hover {
   color: var(--text-primary) !important;
