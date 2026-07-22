@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/portfolio-website/static/css/main.69614796.css",
-    "main.js": "/portfolio-website/static/js/main.49b60b5c.js",
+    "main.js": "/portfolio-website/static/js/main.0663addb.js",
     "static/media/smart-gadget.jpg": "/portfolio-website/static/media/smart-gadget.edc4ad069bbdb64c1697.jpg",
     "static/media/assistive-robot.jpg": "/portfolio-website/static/media/assistive-robot.7429a6e15efb30d64248.jpg",
     "static/media/learnify.jpg": "/portfolio-website/static/media/learnify.8470b6582959628f16a5.jpg",
@@ -16,10 +16,10 @@
     "static/media/Matheesha_Amarathunga_CV.pdf": "/portfolio-website/static/media/Matheesha_Amarathunga_CV.9a9dd3a8d9ca8a4f32b0.pdf",
     "index.html": "/portfolio-website/index.html",
     "main.69614796.css.map": "/portfolio-website/static/css/main.69614796.css.map",
-    "main.49b60b5c.js.map": "/portfolio-website/static/js/main.49b60b5c.js.map"
+    "main.0663addb.js.map": "/portfolio-website/static/js/main.0663addb.js.map"
   },
   "entrypoints": [
     "static/css/main.69614796.css",
-    "static/js/main.49b60b5c.js"
+    "static/js/main.0663addb.js"
   ]
 }
