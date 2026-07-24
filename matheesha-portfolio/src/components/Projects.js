@@ -14,8 +14,22 @@ import imgSmartQueue    from '../assets/projects/smart-queue.jpg';
 import imgLearnify      from '../assets/projects/learnify.jpg';
 import imgSmartMedicineRobot from '../assets/projects/smart-medicine-robot.jpg';
 import imgLoanApproval from '../assets/projects/loan-approval.jpg';
+import imgFluxAI from '../assets/projects/flux-ai.jpg';
 
 const PROJECTS = [
+  {
+  title:       'Flux AI',
+  subtitle:    'AI-Powered Chatbot Application',
+  description: 'Built a full-stack AI chatbot with React frontend and Flask backend, powered by Google Gemini API. Features a liquid glass UI, collapsible sidebar, markdown responses, and smooth Framer Motion animations in a fully responsive layout.',
+  tech:        ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Python', 'Flask', 'Gemini API'],
+  features:    ['Liquid glass UI design', 'Real-time AI chat with typing indicator', 'Markdown-formatted responses', 'Collapsible sidebar & theme toggle'],
+  image:       imgFluxAI,
+  emoji:       '🤖',
+  color:       '#3b82f6',
+  type:        'Web',
+  github:      'https://github.com/MatheeshaAnjana/flux-ai-chatbot.git',
+  demo:        null,
+},
   {
   title:       'Learnify – Learning Management System',
   subtitle:    'Full-Stack MERN Web Application',
